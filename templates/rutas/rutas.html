@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block head_content %}
+<title>Bienvenido a Movilízate</title>
+{% load static %}
+<!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
+    <!-- Extramarkers -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.0.6/dist/css/leaflet.extra-markers.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Routing  -->
+    <link rel="stylesheet" href="{% static 'js/routing/leaflet-routing-machine.css' %}" crossorigin="anonymous" />
+
+    <!-- Geo Coding -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+{% endblock%}
+
+    
+{% block container %}
+   <div class="row">
+       <div class="col ">
+            <div id="myMap" style="height: 550px; "></div>
+       </div>
+   </div>
+   <div class="row" ">
+       <div class="col-6" style="padding-top:50px ;">
+
+        <input id="rmodelo" type="button" value="Hospital más cercano" class="btn btn-primary btn-lg btn-block" onclick="centrarm();"/>
+       </div>
+        <div class="col-6">
+            <div class="form-group row">
+                <div class="col-xs-4">
+                <form  class="form" method="POST" action="test">
+                    
+                    <div class="col-xs-4">
+                        {% csrf_token %}
+                        <label for="latitud">Latitud</label>
+                        <input class="form-control" id="lating" type="text" name="lating">
+                        <label for="longitud">Longitud</label>
+                        <input type="text" name="lnging" class="form-control">
+                        <button type="submit" class="btn btn-primary">Consultar!</button>
+                        <!-- <input id="ingmodelo" type="button" value="Buscar!" class="btn btn-primary btn-lg btn-block" /> -->
+                </form>
+                     </div>
+              </div>
+        </div>
+        
+   </div>
+{% endblock %}
+<!-- <script>
+function enviar(){
+    var latitude = document.getElementById('lating').value;
+    var longitude = document.getElementById('lnging').value;
+
+    var coords = {"latitude":latitude, "longitude":longitude};
+
+    $.ajax({
+        type:'POST',
+        url:'{% url 'rutas_views:register' %}',
+        data: coords,
+        dataType:"json",
+
+        success:function(resp){
+            alert('coords');
+        }
+    });
+    return false;
+}
+</script> -->
+
+<!-- Funciona y regresa datos -->
+<!-- <script>
+    var data = [];
+    $("#OBT").submit(function(event){
+        event.preventDefault();
+        data.push($(this).find('input[name="lating"]').val());
+        aletr("Dato Añadido");
+    });
+
+    function processData(){
+        alert(data);
+    }
+
+</script> -->
+
+
+  <!-- <form action="">
+    <div class="form-group-sm">
+        <label for="exampleInputEmail1">Ingresa tu Latitud</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" >
+    </div>
+    <div class="form-group-sm">
+        <label for="exampleInputEmail1">Ingresa tu longitud</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <button type="button" class="btn btn-primary btn-lg btn-block">Hospital más cercano</button>
+</form> -->
