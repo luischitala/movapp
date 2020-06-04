@@ -23,37 +23,29 @@
     <!-- Geo Coding -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 
-{% endblock%}
+    {% endblock%}
 
-    
-{% block container %}
-   <div class="row">
-       <div class="col ">
-            <div id="myMap" style="height: 550px; "></div>
-       </div>
-   </div>
-   <div class="row" ">
-       <div class="col-6" style="padding-top:50px ;">
-
-        <input id="rmodelo" type="button" value="Hospital más cercano" class="btn btn-primary btn-lg btn-block" onclick="centrarm();"/>
-       </div>
-        <div class="col-6">
-            <div class="form-group row">
-                <div class="col-xs-4">
-                <form  class="form" method="POST" action="test">
-                    
-                    <div class="col-xs-4">
-                        {% csrf_token %}
-                        <label for="latitud">Latitud</label>
-                        <input class="form-control" id="lating" type="text" name="lating">
-                        <label for="longitud">Longitud</label>
-                        <input type="text" name="lnging" class="form-control">
-                        <button type="submit" class="btn btn-primary">Consultar!</button>
-                        <!-- <input id="ingmodelo" type="button" value="Buscar!" class="btn btn-primary btn-lg btn-block" /> -->
-                </form>
-                     </div>
-              </div>
-        </div>
         
-   </div>
-{% endblock %}
+    {% block container %}
+    <div class="row">
+        <div class="col ">
+                <div id="myMap" style="height: 550px; "></div>
+        </div>
+    </div>
+    <div class="row" ">
+        <div class="col-6" style="padding-top:50px ;">
+
+        </div>
+            
+    </div>
+    <script>
+        function centrar(){
+            pos = [logitude,latitude]
+            
+            myMap.flyTo(pos, 15);
+            
+            
+            }   
+        centrar(latitude,longitude);
+    </script>
+    {% endblock %}

@@ -40,7 +40,7 @@ L.tileLayer(tilesProvider, {maxZoom: 18,}).addTo(myMap)
 //By using javasript json parser
 
 function centrar(){
-pos = [20.475683,-103.446807]
+pos = [logitude,latitude]
 
 myMap.flyTo(pos, 15);
 
