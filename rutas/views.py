@@ -20,6 +20,9 @@ import time
 from sklearn.cluster import MiniBatchKMeans, KMeans
 from . import pybingmaps
 bing = pybingmaps.Bing('AizoCiuRwxjT9SjxftwCItVoRXI2v0V3UnLTKSebigC5GUW5NklrIZpL5jRANFuJ')
+# Visualización Geojson
+from geojson import Feature, FeatureCollection, Point
+import json
 
 
 
@@ -100,8 +103,8 @@ def test(request):
         LocateCenters.at[i, 'Distancia_Estimada(km)'] = bing.travelDistance(my_location, hospital_location)
     # Evaluación de parámetros
     Hospitals_nearby_me = LocateCenters
-    Hospitals_nearby_me = LocateCenters.drop(['LATITUD'], axis=1)
-    Hospitals_nearby_me = Hospitals_nearby_me.drop(['LONGITUD'], axis=1)
+    # Hospitals_nearby_me = LocateCenters.drop(['LATITUD'], axis=1)
+    # Hospitals_nearby_me = Hospitals_nearby_me.drop(['LONGITUD'], axis=1)
     Hospitals_nearby_me = Hospitals_nearby_me.join(pd.DataFrame(df_Hospitals['TOTAL_DE_CONSULTORIOS']))
     Hospitals_nearby_me = Hospitals_nearby_me.join(pd.DataFrame(df_Hospitals['TOTAL_MEDICOS_GENERALES_Y_ESPECIALISTAS']))
     Hospitals_nearby_me
@@ -147,11 +150,27 @@ def test(request):
     print(Evaluacion_Hospitals_nearby_me.head(5))
 
 
+    hcf = Evaluacion_Hospitals_nearby_me.to_json(orient='records')
+
+
+    # # columns used for constructing geojson object
+    # features = Evaluacion_Hospitals_nearby_me.apply(
+    # lambda row: Feature(geometry=Point((float(row['LONGITUD']), float(row['LATITUD'])))),
+    # axis=1).tolist()
+
+    # # all the other columns used as properties
+    # properties = Evaluacion_Hospitals_nearby_me.drop(['LATITUD', 'LONGITUD'], axis=1).to_dict('records')
+
+    # # whole geojson object
+    # hcf = FeatureCollection(features=features, properties=properties)
+
+    # print(hcf)
 
 
 
 
-    return render(request, 'rutas/resultado.html', context)
+    return render(request, 'rutas/resultado.html', {'latitude':latitude, 'longitude':longitude, 'hcf':hcf})
+    #return render(request, 'rutas/resultado.html', {'latitude':latitude, 'longitude':longitude, 'hcf':json.dumps(hcf)})
 
 
     return  HttpResponse('Las coordenadas ingresadas fueron: {}'.format(coords))
