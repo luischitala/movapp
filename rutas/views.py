@@ -42,7 +42,9 @@ def ruta(request):
   
 
 
-def test(request):
+def resultado(request):
+
+
     longitude = float(request.POST.get('lnging'))
     latitude = float(request.POST.get('lating'))
     coords = {"latitude":latitude,"longitude":longitude}
@@ -153,6 +155,7 @@ def test(request):
     hcf = Evaluacion_Hospitals_nearby_me.to_json(orient='records')
 
 
+# Posible salida para formato GeoJson
     # # columns used for constructing geojson object
     # features = Evaluacion_Hospitals_nearby_me.apply(
     # lambda row: Feature(geometry=Point((float(row['LONGITUD']), float(row['LATITUD'])))),
@@ -168,11 +171,9 @@ def test(request):
 
 
 
-
+    # Muestra de la vista pasando los parámetros de localización y el resultado del modelo
     return render(request, 'rutas/resultado.html', {'latitude':latitude, 'longitude':longitude, 'hcf':hcf})
-    #return render(request, 'rutas/resultado.html', {'latitude':latitude, 'longitude':longitude, 'hcf':json.dumps(hcf)})
-
-
+   
     return  HttpResponse('Las coordenadas ingresadas fueron: {}'.format(coords))
 
 

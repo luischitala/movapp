@@ -31,79 +31,39 @@
 
         
     {% block container %}
+    <!-- Row para el mapa
+     -->
     <div class="row">
         <div class="col ">
-                <div id="myMap" style="height: 550px; "></div>
+                <div id="myMap" style="height: 450px; "></div>
         </div>
     </div>
-    <div class="row" ">
-
-        <!-- <div class="col-4"> 
-            <div class="card card-hover border border-secondary rounded img-fluid position-absolute zoom" style=" height:314px; width:262px;  background-image: url('{% static 'img/view.png' %}'); max-height:314px;" >
-                <div class="card-body" style="padding-top: -5px; z-index:2; position-absolute">
-                <div class="row t-info">
-                    <div class="col-4"  >
-                        <span class="fcircular" >
-                        <img src="{% static 'img/descarga.png' %}" class="rounded-circle z-depth-2 shadow" height="55" width="55" alt="100x100" style="padding-bottom: 5px;">
-                        </span>
-                    </div>
-                        <div class="col-8" padding-right="0">
-                        
-                        <div class="row"> 
-                            <div class="col-3" style="color:black">3</h7></div>
-                            <div class="col-9 d-flex justify-content-end" style="padding: top 25;">  
-                                <div class="row" style="padding-top: 4px;">
-                                    <i class="fas fa-star" style="color:gold"></i>
-                                    <i class="fas fa-star" style="color:gold"></i>
-                                    <i class="fas fa-star" style="color:gold"></i>
-                                    <i class="fas fa-star" style="color:grey"></i>
-                                    <i class="fas fa-star" style="color:grey"></i>
-                                </div>  
-                            </div>
-                        </div>
-                        <div class="row">
-                           <h5 class="t-tarjeta" style="font-size: 15px; padding-left: 15px; padding-top:10px; color:black;">C.S Tlajomulco</h5>
-                        </div>
-                        </div>
-                </div>
-                <div class="row">
-                    <div class="col" style="max-height: 50px; padding-top:10px;">
-                        <div class="tb-tarjeta rounded" style="background-color: #00d74e;">
-                            <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Disponible en urgencias </h5>
-                            <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Servicio 24 horas</h5>
-                            <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Equipamento completo</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col" style="padding-top: 20px; text-align:center;">
-                        <button class="btn btn-light shadow" style="font-size: 10px; display:inline-block;">REGISTRAR EMERGENCIA</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <ul style="padding-left: 0; padding-top:10px; ">
-                            <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">ESPECIALIDADES</a></li>
-                            <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">SERVICIOS</a></li>
-                            <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">PRECIOS</a></li>
-                            <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">CONTACTO</a></li>
-                        </ul>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div> -->
-
+    <!-- Row para las tarjetas -->
+    <div class="row" id="">
+        <div class="col col-3" id="res0">        
+        </div>
+        <div class="col col-3" id="res1">        
+        </div>
+        <div class="col col-3" id="res2">        
+        </div>
+        <div class="col col-3" id="res3">        
+        </div>
     </div>
+ 
+    <!-- Liberías: Leaflet, Enrutamiento, GeoJson dataset -->
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="{% static 'js/leaflet.extra-markers.min.js' %}"></script>
+    <script src="{% static 'js/routing/leaflet-routing-machine.min.js' %}"></script>
+    <script src="{% static 'js/output.js' %}"></script>
+    <script src="{% static 'js/script_blank.js'%}"></script>
+    <script src="{% static 'js/movilizate.js' %}"></script>
+    <!-- Script para mostrar la información de las tarjetas -->
     <script>
-        //var hospitales = JSON.parse("{{hcf}}");
         var hospitales = {{ hcf|safe }};
-   
-        
-        for(i=0;i <5;i++){
-            
-            <div class="col-4"> 
-                <div class="card card-hover border border-secondary rounded img-fluid position-absolute zoom" style=" height:314px; width:262px;  background-image: url('{% static 'img/view.png' %}'); max-height:314px;" >
+        for(i=0;i<4;i++){
+            var nombre = hospitales[i].NOMBRE_DE_LA_UNIDAD;
+
+            let tarjetas = `<div class="card card-hover border border-secondary rounded img-fluid position-absolute zoom" style=" height:314px; width:262px;  background-image: url('{% static 'img/view.png' %}'); max-height:314px;" >
                     <div class="card-body" style="padding-top: -5px; z-index:2; position-absolute">
                     <div class="row t-info">
                         <div class="col-4"  >
@@ -126,7 +86,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                               <h5 class="t-tarjeta" style="font-size: 15px; padding-left: 15px; padding-top:10px; color:black;">hospitales[i].NOMBRE_DE_LA_UNIDAD</h5>
+                               <h5 class="t-tarjeta" style="font-size: 15px; padding-left: 15px; padding-top:10px; color:black;">`+ nombre +`</h5>
                             </div>
                             </div>
                     </div>
@@ -155,112 +115,36 @@
                         </div>
                     </div>
                     </div>
-                </div>
-            </div>
+                </div>`;
             
+            document.getElementById('res'+[i]).innerHTML= tarjetas;
         }
-            
-        
     </script>
-
-    <!-- <div class="col-4"> 
-        <div class="card card-hover border border-secondary rounded img-fluid position-absolute zoom" style=" height:314px; width:262px;  background-image: url('{% static 'img/view.png' %}'); max-height:314px;" >
-            <div class="card-body" style="padding-top: -5px; z-index:2; position-absolute">
-            <div class="row t-info">
-                <div class="col-4"  >
-                    <span class="fcircular" >
-                    <img src="{% static 'img/descarga.png' %}" class="rounded-circle z-depth-2 shadow" height="55" width="55" alt="100x100" style="padding-bottom: 5px;">
-                    </span>
-                </div>
-                    <div class="col-8" padding-right="0">
-                    
-                    <div class="row"> 
-                        <div class="col-3" style="color:black">3</h7></div>
-                        <div class="col-9 d-flex justify-content-end" style="padding: top 25;">  
-                            <div class="row" style="padding-top: 4px;">
-                                <i class="fas fa-star" style="color:gold"></i>
-                                <i class="fas fa-star" style="color:gold"></i>
-                                <i class="fas fa-star" style="color:gold"></i>
-                                <i class="fas fa-star" style="color:grey"></i>
-                                <i class="fas fa-star" style="color:grey"></i>
-                            </div>  
-                        </div>
-                    </div>
-                    <div class="row">
-                       <h5 class="t-tarjeta" style="font-size: 15px; padding-left: 15px; padding-top:10px; color:black;">C.S Tlajomulco</h5>
-                    </div>
-                    </div>
-            </div>
-            <div class="row">
-                <div class="col" style="max-height: 50px; padding-top:10px;">
-                    <div class="tb-tarjeta rounded" style="background-color: #00d74e;">
-                        <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Disponible en urgencias </h5>
-                        <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Servicio 24 horas</h5>
-                        <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Equipamento completo</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col" style="padding-top: 20px; text-align:center;">
-                    <button class="btn btn-light shadow" style="font-size: 10px; display:inline-block;">REGISTRAR EMERGENCIA</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <ul style="padding-left: 0; padding-top:10px; ">
-                        <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">ESPECIALIDADES</a></li>
-                        <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">SERVICIOS</a></li>
-                        <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">PRECIOS</a></li>
-                        <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">CONTACTO</a></li>
-                    </ul>
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
-     -->
-     
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-    <script src="{% static 'js/leaflet.extra-markers.min.js' %}"></script>
-    <script src="{% static 'js/routing/leaflet-routing-machine.min.js' %}"></script>
-    <script src="{% static 'js/output.js' %}"></script>
-    <script src="{% static 'js/script_blank.js'%}"></script>
-    <script src="{% static 'js/movilizate.js' %}"></script>
     <script>
+
+        //Verificación de la obtención del resultado de modelo 
+        console.log({{ hcf|safe }})
+
+        //Importación de variables para correr 
         var latitude = "{{latitude}}";
         var longitude = "{{longitude}}";
-       
+
+        //Mejorar el formato con escapejs
         //var hospitaless = "{{hcf | escapejs}}";
        
-        //for(i=0;i<2;i++){
-         //   console.log(hospitales["NOMBRE_DE_LA_UNIDAD"]);
-        //}
-
-        //console.log(hospitales["NOMBRE_DE_LA_UNIDAD"]);
-
-        //for(i=0;i <2 ;i++){
-        //    console.log({{hcf}}.NOMBRE_DE_LA_UNIDAD)
-        //}
+        //BESUTO DEBUGA
         console.log("Chi cheñol");
 
-        
+        //Función de centrado
         center(latitude,longitude);
         //Ciclo para colocar los íconos
         for (i=0;i<5;i++){
             var hospitales = {{ hcf|safe }};
+            //Pendiente agregar nombres al popup
+            mname = hospitales[i].NOMBRE_DE_LA_UNIDAD;
             mlatitude = hospitales[i].LATITUD;
             mlongitude = hospitales[i].LONGITUD;
             hospitalmarker(mlatitude,mlongitude);
-
         }
-        //alert(hospitales)
-        //for (i=0;i <hospitales.length;i++){
-        //    document.write('<h4>'+hospitales[i].NOMBRE_DE_LA_UNIDAD+'</h4>')
-        //}
-       
-
     </script>
-    
     {% endblock %}
-
-

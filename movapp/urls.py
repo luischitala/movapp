@@ -12,6 +12,6 @@ urlpatterns = [
 
     path('', rutas_views.inicio),
     path('ruta/', rutas_views.ruta),
-    path('ruta/test', rutas_views.test),
+    path('ruta/resultado', rutas_views.resultado),
 ]
 
