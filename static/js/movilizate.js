@@ -19,7 +19,7 @@
         // Creación de mapa
         const tilesProvider = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         //Delimitación del área de Jalisco
-        let myMap = L.map('myMap').setView([20.677041,-103.347745], 10)
+        let myMap = L.map('myMap').setView([20.677041,-103.347745], 16)
         L.tileLayer(tilesProvider, {maxZoom: 18,}).addTo(myMap)
 
         // Personalización íconos
@@ -42,7 +42,7 @@
         function center(latitude,longitude){
             pos = [latitude,longitude]
             
-            myMap.flyTo(pos, 12);
+            myMap.flyTo(pos, 15);
             L.marker(pos).addTo(myMap).setIcon(dudeMarker);  
            
             }
