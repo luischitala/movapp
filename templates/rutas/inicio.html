@@ -10,8 +10,8 @@
 {% block container %}
 
 
-    <div class="container h-100">
-        <div class="row h-100 justify-content-center align-items-center">
+    
+        <div class="row h-100 justify-content-center align-items-bottom main">
             <div class="col-sm-12 col-md-5 col-lg-5 pt-2 pl-5 pr-5 pb-5" id="auth-container">
 
                 <img src="{% static "img/logo.png" %}" class="img-fluid rounded mx-auto d-block pb-4" style="max-width: 60%;">
@@ -22,14 +22,17 @@
                    
               
                  
-                    <a href="ruta/" class="btn btn-primary btn-block mt-5">Buscar Hospitales!</a>
-                    <button class="btn btn-primary btn-block mt-5" type="submit">Registrarse!</button>
+                    <a href="ruta/" class="btn btn-primary btn-block mt-5 btn-lg">Buscar Hospitales!</a>
+                    <button class="btn btn-primary btn-block mt-5 btn-lg" type="submit">Registrarse!</button>
                     
                 </form>
 
             </div>
         </div>
-    </div>
+    <script>
+        var objDiv = document.getElementById("main");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    </script>
 
 
 {% endblock %}
