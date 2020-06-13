@@ -80,31 +80,58 @@ crossorigin=""/>
                 //loader.className += " hidden";
             //});
             //Función para obtener las coordenadas
-            function ipLookUp () {
-                $.ajax('https://ip-api.com/json')
-                .then(
-                    function success(response) {
-                        console.log('User\'s Location Data is ', response);
-                        console.log('User\'s Country', response.country);
-                        console.log(response.lat);
-                        console.log(response.lon);
-                        var latitud = parseFloat(response.lat);
-                        var longitud = parseFloat(response.lon);
+            
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+              };
+              
+              function success(pos) {
+                var crd = pos.coords;
+              
+                console.log('Your current position is:');
+                console.log('Latitude : ' + crd.latitude);
+                console.log('Longitude: ' + crd.longitude);
+                console.log('More or less ' + crd.accuracy + ' meters.');
+                var latitud = parseFloat(crd.latitude);
+                var longitud = parseFloat(crd.longitude);
+                $('#lating').val(latitud);
+                $('#lnging').val(longitud);
+              };
+              
+              function error(err) {
+                console.warn('ERROR(' + err.code + '): ' + err.message);
+              };
+              
+              navigator.geolocation.getCurrentPosition(success, error, options);
+             
+
+              //function ipLookUp () {
+               // $.ajax('https://ip-api.com/json')
+                //.then(
+                  //  function success(response) {
+                    //    console.log('User\'s Location Data is ', response);
+                      //  console.log('User\'s Country', response.country);
+                        //console.log(response.lat);
+                        //console.log(response.lon);
+                        //var latitud = parseFloat(response.lat);
+                        //var longitud = parseFloat(response.lon);
                         //$('#lating').val(parseFloat(response[0].lat));
                         //$('#longing').val(parseFloat(response[0].lon));                    
-                        $('#lating').val(latitud);
-                        $('#lnging').val(longitud);
+                        //$('#lating').val(latitud);
+                        //$('#lnging').val(longitud);
                         
-                    },
+                    //},
     
-                    function fail(data, status) {
-                        console.log('Request failed.  Returned status of',
-                                    status);
-                    }
-                );
-                return 
-                }
-            ipLookUp()
+                    //function fail(data, status) {
+                       //console.log('Request failed.  Returned status of',
+                                    //status);
+                    //}
+                //);
+                //return 
+                //}
+            //ipLookUp()
             
         </script>
    
