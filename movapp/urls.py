@@ -15,6 +15,6 @@ urlpatterns = [
     path('', rutas_views.inicio),
     path('ruta/', rutas_views.ruta),
     path('ruta/resultado', rutas_views.resultado),
-    
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
