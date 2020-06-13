@@ -147,10 +147,13 @@ def resultado(request):
                                                     +Evaluacion_Hospitals_nearby_me['Ev_Consultorios']* 0.1
                                                     +Evaluacion_Hospitals_nearby_me['Ev_Medicos']* 0.2)
 
-    Evaluacion_Hospitals_nearby_me["Ranking"] = Evaluacion_Hospitals_nearby_me['Calificacion'].rank(method='max')
-            
-    print(Evaluacion_Hospitals_nearby_me.head(5))
+    Evaluacion_Hospitals_nearby_me["Ranking"] = Evaluacion_Hospitals_nearby_me['Calificacion'].rank(method='dense', ascending = False)
 
+    Evaluacion_Hospitals_nearby_me = Evaluacion_Hospitals_nearby_me.sort_values(["Ranking"], ascending=True)
+
+    
+            
+    print(Evaluacion_Hospitals_nearby_me.head(3))
 
     hcf = Evaluacion_Hospitals_nearby_me.to_json(orient='records')
 

@@ -44,7 +44,7 @@
             
             myMap.flyTo(pos, 12);
             L.marker(pos).addTo(myMap).setIcon(dudeMarker);  
-            alert("¡Hemos encontrado Hospitales cerca de ti!")       
+           
             }
 
         //Función Añadir los marcadores
@@ -55,6 +55,26 @@
             L.marker(pos).addTo(myMap).setIcon(hospitalMarker); 
             
         }
+        //Highlight
+        function hospitalmarkerh(mlatitude,mlongitude){
+
+            pos = [mlatitude,mlongitude]
+
+            L.marker(pos, {highlight: 'permanent'}).addTo(myMap).setIcon(hospitalMarker); 
+            
+        }
+
+        //Función de rellenado de inputs
+        function selectionchange(){
+            var e = document.getElementById("select-location");
+            var lat = e.options[e.selectedIndex].value;
+            
+
+            document.getElementById('slat').value = lat;
+        
+
+        }
+
 
         //Función para habilitar el selector
         function movSelector(){
@@ -63,6 +83,8 @@
                 console.log(e.target.value.split(","));
                 //Almacenamiento en variable
                 let coords = e.target.value.split(",");
+                //Rellenado de inputs con valores del selector
+                selectionchange()
                 //Función de colocación en el mapa
             myMap.flyTo(coords, 14);
         })}

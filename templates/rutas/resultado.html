@@ -24,18 +24,23 @@
     <link rel="stylesheet" href="{% static 'css/estilos.css' %} ">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/ad8dd70d61.js" crossorigin="anonymous"></script>
+    <!-- Sweet ALert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <!-- Highlight -->
+    <script src="{% static 'leaflet.marker.highlight/index.js'%}"></script>
+    <link href="{% static 'leaflet.marker.highlight/index.css'%}" rel="stylesheet" >
+
     <!-- EStilos -->
-    
-
-    {% endblock%}
-
-        
+    {% endblock%}        
     {% block container %}
     <!-- Row para el mapa
      -->
     <div class="row">
         <div class="col ">
                 <div id="myMap" style="height: 450px; "></div>
+                <div class="loader">
+                    <img src="{% static "img/carga.gif" %}" alt="">
+                </div>
         </div>
     </div>
     <!-- Row para las tarjetas -->
@@ -46,10 +51,7 @@
         </div>
         <div class="col col-3" id="res2">        
         </div>
-        <div class="col col-3" id="res3">        
-        </div>
     </div>
- 
     <!-- Liberías: Leaflet, Enrutamiento, GeoJson dataset -->
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="{% static 'js/leaflet.extra-markers.min.js' %}"></script>
@@ -60,10 +62,9 @@
     <!-- Script para mostrar la información de las tarjetas -->
     <script>
         var hospitales = {{ hcf|safe }};
-        for(i=0;i<4;i++){
+        for(i=0;i<3;i++){
             var nombre = hospitales[i].NOMBRE_DE_LA_UNIDAD;
-
-            let tarjetas = `<div class="card card-hover border border-secondary rounded img-fluid position-absolute zoom" style=" height:314px; width:262px;  background-image: url('{% static 'img/view.png' %}'); max-height:314px;" >
+                let tarjetas = `<div class="card card-hover border border-secondary rounded img-fluid position-absolute zoom" style=" height:314px; width:262px;  background-image: url('{% static 'img/view.png' %}'); max-height:314px;" >
                     <div class="card-body" style="padding-top: -5px; z-index:2; position-absolute">
                     <div class="row t-info">
                         <div class="col-4"  >
@@ -86,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                               <h5 class="t-tarjeta" style="font-size: 15px; padding-left: 15px; padding-top:10px; color:black;">`+ nombre +`</h5>
+                            <h5 class="t-tarjeta" style="font-size: 15px; padding-left: 15px; padding-top:10px; color:black;">`+ nombre +`</h5>
                             </div>
                             </div>
                     </div>
@@ -116,11 +117,16 @@
                     </div>
                     </div>
                 </div>`;
+                document.getElementById('res'+[i]).innerHTML= tarjetas;
             
-            document.getElementById('res'+[i]).innerHTML= tarjetas;
         }
     </script>
     <script>
+         //Cargar la animación de load
+         window.addEventListener('load', function(){
+            const loader = document.querySelector(".loader");
+            loader.className += " hidden";
+        });
 
         //Verificación de la obtención del resultado de modelo 
         console.log({{ hcf|safe }})
@@ -138,13 +144,29 @@
         //Función de centrado
         center(latitude,longitude);
         //Ciclo para colocar los íconos
-        for (i=0;i<5;i++){
+        for (i=0;i<3;i++){
             var hospitales = {{ hcf|safe }};
+            if(i==0){
             //Pendiente agregar nombres al popup
             mname = hospitales[i].NOMBRE_DE_LA_UNIDAD;
             mlatitude = hospitales[i].LATITUD;
             mlongitude = hospitales[i].LONGITUD;
-            hospitalmarker(mlatitude,mlongitude);
+            hospitalmarkerh(mlatitude,mlongitude);
+            }
+            else {
+                //Pendiente agregar nombres al popup
+                mname = hospitales[i].NOMBRE_DE_LA_UNIDAD;
+                mlatitude = hospitales[i].LATITUD;
+                mlongitude = hospitales[i].LONGITUD;
+                hospitalmarker(mlatitude,mlongitude); 
+            }
         }
+        Swal.fire({
+            title: 'Listo!',
+            text: 'Hemos encontrado opciones cerca de usted',
+            icon: 'success',
+            confirmButtonText: 'Continuar'
+          })
+          
     </script>
     {% endblock %}

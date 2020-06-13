@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block head_content %}
 <title>Bienvenido a Movilízate</title>
@@ -11,23 +12,28 @@ crossorigin=""></script>
 integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
 crossorigin=""/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Estilos -->
+<link rel="stylesheet" href="{% static 'css/estilos.css' %} ">
  
 {% endblock%}
 
     
 {% block container %}
+    
    <div class="row">
-       <div class="col ">
-            <div id="myMap" style="height: 500px; "></div>
-       </div>
+    <div class="col" id="contmapa">
+        
+        <div id="myMap" style="height: 500px; "></div>
+       
+   </div>
    </div>
    <div class="row" ">
        <div class="col-4" style="padding-top:50px; padding-left:50px;">
         <div class="form-group row">
-                <form  class="form" method="POST" action="resultado">
+                <form  class="form" method="POST" action="resultado" id="datosa">
                         {% csrf_token %}
                         <input class="form-control" id="lating" type="hidden" name="lating">
-                        <input type="hidden" name="lnging" class="form-control" id="longing">
+                        <input type="hidden" name="lnging" class="form-control" id="lnging">
 
                         <button type="submit" class="btn btn-primary btn-block">Hospital más cercano!</button>
                 </form>
@@ -41,9 +47,9 @@ crossorigin=""/>
                     <div class="col-xs-4">
                         {% csrf_token %}
                         <label for="latitud">Latitud</label>
-                        <input class="form-control" type="text" name="lating">
+                        <input class="form-control" type="text" name="lating" id="slat">
                         <label for="longitud">Longitud</label>
-                        <input type="text" name="lnging" class="form-control">
+                        <input type="text" name="lnging" class="form-control" id="slng">
                         <button type="submit" class="btn btn-primary" style="">Consultar!</button>
                         <!-- <input id="ingmodelo" type="button" value="Buscar!" class="btn btn-primary btn-lg btn-block" /> -->
                 </form>
@@ -61,12 +67,19 @@ crossorigin=""/>
                     <option value="20.639715,-103.311846">Tlaquepaque</option>
                     <option value="20.720995,-103.391026">Zapopan</option>
                     <option value="20.624105,-103.242329">Tonalá</option>
-        
+                    
                 </select>
             </div>
         </div>
-  
+        
         <script>
+           
+            //Cargar la animación de load del index a rutas
+            ///window.addEventListener('load', function(){
+               // const loader = document.querySelector(".loader");
+                //loader.className += " hidden";
+            //});
+            //Función para obtener las coordenadas
             function ipLookUp () {
                 $.ajax('http://ip-api.com/json')
                 .then(
@@ -80,7 +93,7 @@ crossorigin=""/>
                         //$('#lating').val(parseFloat(response[0].lat));
                         //$('#longing').val(parseFloat(response[0].lon));                    
                         $('#lating').val(latitud);
-                        $('#longing').val(longitud);
+                        $('#lnging').val(longitud);
                         
                     },
     
@@ -93,7 +106,6 @@ crossorigin=""/>
                 }
             ipLookUp()
             
-
         </script>
    
 
@@ -104,4 +116,24 @@ crossorigin=""/>
    <script src="{% static 'js/output.js' %}"></script>
    <script src="{% static 'js/script_blank.js'%}"></script>
    <script src="{% static 'js/movilizate.js' %}"></script>
+   <div class="loader hidden" id="loader">
+        <img src="{% static "img/carga.gif" %}" alt="">
+   </div>
+   <script> //Cargar la animación en el formulario
+    $(document).ready(function(){
+        $("#datosa").on("submit", function(){
+            var element = document.getElementById("loader");
+            element.classList.remove("hidden");
+            var mapa = document.getElementById("contmapa");
+            mapa.remove()
+            //const loader = document.querySelector(".loader");
+            //loader.className -= " hidden";
+        });//submit
+      });//document ready
+
+      function myFunction() {
+        var element = document.getElementById("myDIV");
+        element.classList.remove("mystyle");
+      }
+    </script>
 {% endblock %}
