@@ -3,8 +3,9 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    width: 100%;
+    width: 100vw;
     height: 100%;
+    
 }
 
 #auth-container{
@@ -27,4 +28,9 @@ body {
 .inferior{
     position:absolute;
     bottom:0;
+}
+
+html, body, #map {
+    height: 100%;
+    width: 100vw;
 }

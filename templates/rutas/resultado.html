@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block head_content %}
+
 <title>Bienvenido a Movilízate</title>
 {% load static %}
     <!-- Leaflet -->
@@ -36,20 +37,22 @@
     <!-- Row para el mapa
      -->
     <div class="row">
-        <div class="col ">
-                <div id="myMap" style="height: 1300px; " style="padding-right: 0px;"></div>
+        <div class="col " style="padding-right: -10px;">
+            <div id="myMap" style="height: 1300px; width:1100px" style="padding-right: 0px;"></div>
                 <div class="loader">
                     <img src="{% static "img/carga.gif" %}" alt="">
                 </div>
         </div>
+            
+        </div>
     </div>
     <!-- Row para las tarjetas -->
-    <div class="row" id="" style="padding-left: 10px;">
-        <div class="col col-4 col-md-offset-2" id="res0" style="padding-left: 30px;">        
+    <div class="row" id="" >
+        <div class="col col-4 col-md-offset-2" id="res0" style="padding-left: 80px">        
         </div>
-        <div class="col col-4 col-md-offset-2" id="res1" style="padding-left: 20px">        
+        <div class="col col-4 col-md-offset-2" id="res1" style="padding-left: 90px">        
         </div>
-        <div class="col col-4 col-md-offset-2" id="res2">        
+        <div class="col col-4 col-md-offset-2" id="res2" style="padding-left: 90px">        
         </div>
     </div>
     <!-- Liberías: Leaflet, Enrutamiento, GeoJson dataset -->
@@ -64,7 +67,8 @@
         var hospitales = {{ hcf|safe }};
         for(i=0;i<3;i++){
             var nombre = hospitales[i].NOMBRE_DE_LA_UNIDAD;
-                let tarjetas = `<div class="card card-hover border border-secondary rounded img-fluid position-relative zoom" style=" height:400px; width:300px; padding-right:10px;  background-image: url('{% static 'img/view.png' %}'); max-height:400px; max-width:280px;" >
+            if(i==0){
+                let tarjetas = `<div class="card card-hover border border-secondary rounded img-fluid position-relative zoom" style=" height:400px; width:300px; padding-left:30px; padding-right:10px;  background-image: url('{% static 'img/green.png' %}'); max-height:400px; max-width:280px;" >
                     <div class="card-body" style="padding-top: -5px; z-index:2; position-absolute">
                     <div class="row t-info">
                         <div class="col-4"  >
@@ -118,6 +122,120 @@
                     </div>
                 </div>`;
                 document.getElementById('res'+[i]).innerHTML= tarjetas;
+            }
+            else if (i == 1){
+                let tarjetas = `<div class="card card-hover border border-secondary rounded img-fluid position-relative zoom" style=" height:400px; width:300px; padding-left:30px; padding-right:10px;  background-image: url('{% static 'img/view.png' %}'); max-height:400px; max-width:280px;" >
+                    <div class="card-body" style="padding-top: -5px; z-index:2; position-absolute">
+                    <div class="row t-info">
+                        <div class="col-4"  >
+                            <span class="fcircular" >
+                            <img src="{% static 'img/descarga.png' %}" class="rounded-circle z-depth-2 shadow" height="55" width="55" alt="100x100" style="padding-bottom: 5px;">
+                            </span>
+                        </div>
+                            <div class="col-8" padding-right="0">
+                            
+                            <div class="row"> 
+                                <div class="col-3" style="color:black">3</h7></div>
+                                <div class="col-9 d-flex justify-content-end" style="padding: top 25;">  
+                                    <div class="row" style="padding-top: 4px;">
+                                        <i class="fas fa-star" style="color:gold"></i>
+                                        <i class="fas fa-star" style="color:gold"></i>
+                                        <i class="fas fa-star" style="color:gold"></i>
+                                        <i class="fas fa-star" style="color:grey"></i>
+                                        <i class="fas fa-star" style="color:grey"></i>
+                                    </div>  
+                                </div>
+                            </div>
+                            <div class="row">
+                            <h5 class="t-tarjeta" style="font-size: 15px; padding-left: 15px; padding-top:10px; color:black;">`+ nombre +`</h5>
+                            </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="max-height: 50px; padding-top:10px;">
+                            <div class="tb-tarjeta rounded" style="background-color: #00d74e;">
+                                <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Disponible en urgencias </h5>
+                                <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Servicio 24 horas</h5>
+                                <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Equipamento completo</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding-top: 20px; text-align:center;">
+                            <button class="btn btn-light shadow" style="font-size: 10px; display:inline-block;">REGISTRAR EMERGENCIA</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <ul style="padding-left: 0; padding-top:10px; ">
+                                <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">ESPECIALIDADES</a></li>
+                                <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">SERVICIOS</a></li>
+                                <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">PRECIOS</a></li>
+                                <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">CONTACTO</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                </div>`;
+                document.getElementById('res'+[i]).innerHTML= tarjetas;
+            }
+            else{
+                let tarjetas = `<div class="card card-hover border border-secondary rounded img-fluid position-relative zoom" style=" height:400px; width:300px; padding-left:30px; padding-right:10px;  background-image: url('{% static 'img/selected.png' %}'); max-height:400px; max-width:280px;" >
+                    <div class="card-body" style="padding-top: -5px; z-index:2; position-absolute">
+                    <div class="row t-info">
+                        <div class="col-4"  >
+                            <span class="fcircular" >
+                            <img src="{% static 'img/descarga.png' %}" class="rounded-circle z-depth-2 shadow" height="55" width="55" alt="100x100" style="padding-bottom: 5px;">
+                            </span>
+                        </div>
+                            <div class="col-8" padding-right="0">
+                            
+                            <div class="row"> 
+                                <div class="col-3" style="color:white">3</h7></div>
+                                <div class="col-9 d-flex justify-content-end" style="padding: top 25;">  
+                                    <div class="row" style="padding-top: 4px;">
+                                        <i class="fas fa-star" style="color:gold"></i>
+                                        <i class="fas fa-star" style="color:gold"></i>
+                                        <i class="fas fa-star" style="color:gold"></i>
+                                        <i class="fas fa-star" style="color:grey"></i>
+                                        <i class="fas fa-star" style="color:grey"></i>
+                                    </div>  
+                                </div>
+                            </div>
+                            <div class="row">
+                            <h5 class="t-tarjeta" style="font-size: 15px; padding-left: 15px; padding-top:10px; color:white;">`+ nombre +`</h5>
+                            </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="max-height: 50px; padding-top:10px;">
+                            <div class="tb-tarjeta rounded" style="background-color: #00d74e;">
+                                <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Disponible en urgencias </h5>
+                                <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Servicio 24 horas</h5>
+                                <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Equipamento completo</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="padding-top: 20px; text-align:center;">
+                            <button class="btn btn-light shadow" style="font-size: 10px; display:inline-block;">REGISTRAR EMERGENCIA</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <ul style="padding-left: 0; padding-top:10px; ">
+                                <li style="list-style-type: none;"><a href="" style="color: white; text-decoration:none;">ESPECIALIDADES</a></li>
+                                <li style="list-style-type: none;"><a href="" style="color: white; text-decoration:none;">SERVICIOS</a></li>
+                                <li style="list-style-type: none;"><a href="" style="color: white; text-decoration:none;">PRECIOS</a></li>
+                                <li style="list-style-type: none;"><a href="" style="color: white; text-decoration:none;">CONTACTO</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                </div>`;
+                document.getElementById('res'+[i]).innerHTML= tarjetas;
+            }
+                
             
         }
     </script>

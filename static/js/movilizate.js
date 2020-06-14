@@ -19,8 +19,8 @@
         // Creación de mapa
         const tilesProvider = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         //Delimitación del área de Jalisco
-        let myMap = L.map('myMap').setView([20.677041,-103.347745], 16)
-        L.tileLayer(tilesProvider, {maxZoom: 18,}).addTo(myMap)
+        let myMap = L.map('myMap',{ zoomControl: false }).setView([20.677041,-103.347745], 16);
+        L.tileLayer(tilesProvider, {maxZoom: 18,}).addTo(myMap);
 
         // Personalización íconos
         let hospitalMarker = L.ExtraMarkers.icon({
