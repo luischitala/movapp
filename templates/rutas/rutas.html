@@ -15,6 +15,9 @@ crossorigin=""/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Estilos -->
 <link rel="stylesheet" href="{% static 'css/estilos.css' %} ">
+
+ <!-- Sweet ALert -->
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
  
 {% endblock%}
 
@@ -33,10 +36,10 @@ crossorigin=""/>
         <div class="form-group row">
                 <form  class="form" method="POST" action="resultado" id="datosa">
                         {% csrf_token %}
-                        <input class="form-control" id="lating" type="hidden" name="lating">
-                        <input type="hidden" name="lnging" class="form-control" id="lnging">
+                        <input class="form-control" id="lating" type="hidden" name="lating" required>
+                        <input type="hidden" name="lnging" class="form-control" id="lnging" required>
 
-                        <button type="submit" class="btn btn-primary btn-block">Hospital más cercano!</button>
+                        <button id="autopos" type="submit" class="btn btn-primary btn-block">Hospital más cercano!</button>
                 </form>
        </div>
        </div>
@@ -48,9 +51,9 @@ crossorigin=""/>
                     <div class="col-xs-4">
                         {% csrf_token %}
                         <label for="latitud">Latitud</label>
-                        <input class="form-control" type="text" name="lating" id="slat">
+                        <input class="form-control" type="text" name="lating" id="slat" required>
                         <label for="longitud">Longitud</label>
-                        <input type="text" name="lnging" class="form-control" id="slng">
+                        <input type="text" name="lnging" class="form-control" id="slng" required>
                         <button type="submit" class="btn btn-primary" style="">Consultar!</button>
                         <!-- <input id="ingmodelo" type="button" value="Buscar!" class="btn btn-primary btn-lg btn-block" /> -->
                 </form>
@@ -72,72 +75,6 @@ crossorigin=""/>
                 </select>
             </div>
         </div>
-        
-        <script>
-           
-            //Cargar la animación de load del index a rutas
-            ///window.addEventListener('load', function(){
-               // const loader = document.querySelector(".loader");
-                //loader.className += " hidden";
-            //});
-            //Función para obtener las coordenadas
-            
-            var options = {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-              };
-              
-              function success(pos) {
-                var crd = pos.coords;
-              
-                console.log('Your current position is:');
-                console.log('Latitude : ' + crd.latitude);
-                console.log('Longitude: ' + crd.longitude);
-                console.log('More or less ' + crd.accuracy + ' meters.');
-                var latitud = parseFloat(crd.latitude);
-                var longitud = parseFloat(crd.longitude);
-                $('#lating').val(latitud);
-                $('#lnging').val(longitud);
-              };
-              
-              function error(err) {
-                console.warn('ERROR(' + err.code + '): ' + err.message);
-              };
-              
-              navigator.geolocation.getCurrentPosition(success, error, options);
-             
-
-              //function ipLookUp () {
-               // $.ajax('https://ip-api.com/json')
-                //.then(
-                  //  function success(response) {
-                    //    console.log('User\'s Location Data is ', response);
-                      //  console.log('User\'s Country', response.country);
-                        //console.log(response.lat);
-                        //console.log(response.lon);
-                        //var latitud = parseFloat(response.lat);
-                        //var longitud = parseFloat(response.lon);
-                        //$('#lating').val(parseFloat(response[0].lat));
-                        //$('#longing').val(parseFloat(response[0].lon));                    
-                        //$('#lating').val(latitud);
-                        //$('#lnging').val(longitud);
-                        
-                    //},
-    
-                    //function fail(data, status) {
-                       //console.log('Request failed.  Returned status of',
-                                    //status);
-                    //}
-                //);
-                //return 
-                //}
-            //ipLookUp()
-            
-        </script>
-   
-
-
    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
    <script src="{% static 'js/leaflet.extra-markers.min.js' %}"></script>
    <script src="{% static 'js/routing/leaflet-routing-machine.min.js' %}"></script>
@@ -147,7 +84,8 @@ crossorigin=""/>
    <div class="loader hidden" id="loader">
         <img src="{% static "img/carga.gif" %}" alt="">
    </div>
-   <script> //Cargar la animación en el formulario
+   <script> 
+     //Cargar la animación en el formulario
     $(document).ready(function(){
         $("#datosa").on("submit", function(){
             var element = document.getElementById("loader");
@@ -163,5 +101,51 @@ crossorigin=""/>
         var element = document.getElementById("myDIV");
         element.classList.remove("mystyle");
       }
+
+      movSelector();
+      function obtencioncoord(){
+        
+      }
+        var options = {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        };
+        
+        function success(pos) {
+          var crd = pos.coords;
+        
+          console.log('Your current position is:');
+          console.log('Latitude : ' + crd.latitude);
+          console.log('Longitude: ' + crd.longitude);
+          console.log('More or less ' + crd.accuracy + ' meters.');
+          latitud = parseFloat(crd.latitude);
+          longitud = parseFloat(crd.longitude);
+          $('#lating').val(latitud);
+          $('#lnging').val(longitud);
+          var latitud;
+          var longitud;
+          console.log(latitud);
+          console.log(longitud);
+          if ((typeof latitud !== 'undefined') && typeof longitud !== 'undefined'){
+            document.querySelector('#autopos').type = 'submit';
+        }else{
+              document.querySelector('#autopos').type = 'button';
+              Swal.fire({
+                title: 'Lo sentimos!',
+                text: 'Necesitamos su localización para funcionar :(',
+                icon: 'error',
+                confirmButtonText: 'Activar GPS'
+              });
+          }
+        }
+        
+        function error(err) {
+          console.warn('ERROR(' + err.code + '): ' + err.message);
+          
+        };
+        navigator.geolocation.getCurrentPosition(success, error, options);
+      
+      
     </script>
 {% endblock %}

@@ -36,7 +36,7 @@ def inicio(request):
 
 def ruta(request):
 
-    
+    request.session.set_test_cookie()
     return render(request, 'rutas/rutas.html')
    
   
@@ -44,7 +44,7 @@ def ruta(request):
 
 def resultado(request):
 
-
+    request.session.test_cookie_worked()
     longitude = float(request.POST.get('lnging'))
     latitude = float(request.POST.get('lating'))
     coords = {"latitude":latitude,"longitude":longitude}
@@ -151,7 +151,7 @@ def resultado(request):
 
     Evaluacion_Hospitals_nearby_me = Evaluacion_Hospitals_nearby_me.sort_values(["Ranking"], ascending=True)
 
-    
+
             
     print(Evaluacion_Hospitals_nearby_me.head(3))
 
