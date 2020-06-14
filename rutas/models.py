@@ -23,4 +23,13 @@ class Hospital(models.Model):
         return self.NOMBRE_DE_LA_UNIDAD
 
     objects = DataFrameManager()
+
+class Calculo(models.Model):
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+    latitud = models.FloatField(null=False)
+    longitud = models.FloatField(null=False)
+
+    def __str__(self):
+        return str(fecha_registro)
+    
     
