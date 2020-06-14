@@ -38,10 +38,24 @@
      -->
     <div class="row">
         <div class="col " style="padding-right: -10px;">
-            <div id="myMap" style="height: 1300px; width:1100px" style="padding-right: 0px;"></div>
-                <div class="loader">
-                    <img src="{% static "img/carga.gif" %}" alt="">
+
+            <div class="main-wrapper">
+               
+
+        
+            <div id="myMap" style="height: 1300px; width:1100px" style="padding-right: 0px;">
+                <div class="overlay">
+                    <input type="radio">Hola
                 </div>
+                <button id="refreshButton">Refresh Button</button>
+            </div>
+            
+           
+            <div class="loader">
+                <img src="{% static "img/carga.gif" %}" alt="">
+            </div>
+            </div>
+
         </div>
             
         </div>
@@ -95,9 +109,9 @@
                             </div>
                             </div>
                     </div>
-                    <div class="row">
-                        <div class="col" style="max-height: 50px; padding-top:10px;">
-                            <div class="tb-tarjeta rounded" style="background-color: #00d74e;">
+                    <div class="row" style:padding-top:50px;>
+                        <div class="col" style="max-height: 50px;">
+                            <div class="tb-tarjeta rounded" style="background-color: #00d74e; ">
                                 <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Disponible en urgencias </h5>
                                 <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Servicio 24 horas</h5>
                                 <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Equipamento completo</h5>
@@ -285,6 +299,7 @@
             icon: 'success',
             confirmButtonText: 'Continuar'
           })
-          
+        
+        
     </script>
     {% endblock %}
