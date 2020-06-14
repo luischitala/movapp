@@ -30,6 +30,10 @@
     <!-- Highlight -->
     <script src="{% static 'leaflet.marker.highlight/index.js'%}"></script>
     <link href="{% static 'leaflet.marker.highlight/index.css'%}" rel="stylesheet" >
+    <!-- Routing -->
+    <link rel="stylesheet" href="../../../static/routing/leaflet-routing-machine.css">
+    <!-- Geo Coding -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 
     <!-- EStilos -->
     {% endblock%}        
@@ -77,6 +81,10 @@
         //Importación de variables para correr 
         var latitude = "{{latitude}}";
         var longitude = "{{longitude}}";
+
+        var hospitales = {{ hcf|safe }};
+        var dlatitude = hospitales[0].LATITUD;
+        var dlongitude = hospitales[0].LONGITUD;
         //Función de centrado
         center(latitude,longitude);
         Swal.fire({
@@ -282,11 +290,22 @@
         }
     </script>
     <script>
-        for(i=0; i<200; i++){
-            function timedRefresh(time) {
-                setTimeout("location.reload(true);", time);
-                }
-                timedRefresh(20000);
-        }   
+       
+    </script>
+    <script>
+        L.Routing.control({
+            router: L.routing.mapbox('pk.eyJ1IjoiaXRhc3RldGFjbyIsImEiOiJjazlyemdhMWQwMGw4M2VsaWk1YWNoZjE5In0.pOkmZhEiIga2RtfV0rpvqA'),
+            waypoints: [
+                L.latLng(latitude,longitude),
+                L.latLng(dlatitude,dlongitude)
+            ],
+            createMarker: function() { return null; },
+            routeWhileDragging: true,
+            geocoder: L.Control.Geocoder.nominatim()
+        })
+        .on('routesfound', function(e) {
+            var routes = e.routes;
+        })
+        .addTo(myMap);
     </script>
     {% endblock %}
