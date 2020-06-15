@@ -76,7 +76,7 @@
 
             pos = [mlatitude,mlongitude]
 
-            L.marker(pos, {highlight: 'permanent'}).addTo(myMap).setIcon(hospitalMarker); 
+            L.marker(pos, {highlight: 'permanent'}).addTo(myMap).setIcon(hospitalMarker).bindPopup('Soy la mejor opción :)').openPopup(); 
             
         }
 
