@@ -34,7 +34,7 @@ crossorigin=""/>
    <div class="row" ">
        <div class="col-4" style="padding-top:50px; padding-left:50px;">
         <div class="form-group row">
-                <form  class="form" method="POST" action="resultado" id="datosa">
+                <form  class="form" method="POST" action="resultado" id="datosa" >
                         {% csrf_token %}
                         <input class="form-control" id="lating" type="hidden" name="lating" required>
                         <input type="hidden" name="lnging" class="form-control" id="lnging" required>
@@ -119,15 +119,27 @@ crossorigin=""/>
           console.log('Latitude : ' + crd.latitude);
           console.log('Longitude: ' + crd.longitude);
           console.log('More or less ' + crd.accuracy + ' meters.');
-          latitud = parseFloat(crd.latitude);
-          longitud = parseFloat(crd.longitude);
+          latitude = parseFloat(crd.latitude);
+          longitude = parseFloat(crd.longitude);
           $('#lating').val(latitud);
           $('#lnging').val(longitud);
           var latitud;
           var longitud;
           console.log(latitud);
           console.log(longitud);
-    
+          if(latitud == null){
+            Swal.fire({
+              title: 'Lo sentimos :(',
+              text: 'Necesitamos de su localización para funcionar',
+              icon: 'error',
+              confirmButtonText: 'Encender Gps'
+            });
+            //document.getElementById("autopos").remove();
+            setTimeout(function(){
+              location = ''
+            },30000)
+          }
+          
         }
         
         function error(err) {
@@ -135,7 +147,26 @@ crossorigin=""/>
           
         };
         navigator.geolocation.getCurrentPosition(success, error, options);
-      
+    </script>
+    <script>
+      document.getElementById("autopos").addEventListener("click", function(event){
+        event.preventDefault()
+        var vlatitud = $("#lating").val();
+        var vlongitud = $("#lnging").val();
+        console.log(vlatitud,vlongitud);
+        if (vlatitud != '' && vlatitud != null){
+            alert('Tenemos coordenadas!');
+        }else{
+          e.preventDefault();
+          Swal.fire({
+            title: 'Alto!',
+            text: 'Necesitamos de su localización para funcionar :(',
+            icon: 'error',
+            confirmButtonText: 'Encender Gps'
+          });
+          return false;
+        }
+      });
       
     </script>
 {% endblock %}
