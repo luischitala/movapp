@@ -31,19 +31,51 @@
     <script src="{% static 'leaflet.marker.highlight/index.js'%}"></script>
     <link href="{% static 'leaflet.marker.highlight/index.css'%}" rel="stylesheet" >
     <!-- Routing -->
-    <link rel="stylesheet" href="../../../static/routing/leaflet-routing-machine.css">
+    <link rel="stylesheet" href="{% static 'js/routing/leaflet-routing-machine.css' %}">
     <!-- Geo Coding -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-
+    <!-- Side Bar -->
+    <link rel="stylesheet" href="{% static 'sidebar-v2-master/css/leaflet-sidebar.css' %}">
     <!-- EStilos -->
     {% endblock%}        
     {% block container %}
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar collapsed">
+        <!-- Nav tabs -->
+        <div class="sidebar-tabs">
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
+                <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
+            </ul>
+
+            <ul role="tablist">
+                <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
+            </ul>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="sidebar-content">
+            <div class="sidebar-pane" id="home">
+                <h1 class="sidebar-header">
+                    Ruta
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <div id="controls"></div>
+    
+            </div>
+
+            <div class="sidebar-pane controls" id="profile">
+                <h1 class="sidebar-header">Profile<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+            </div>
+
+        </div>
+    </div>
     <!-- Row para el mapa
      -->
     <div class="row">
-        <div class="col " style="padding-right: -10px;">
+        <div class="col" style="padding-right: -10px;">
             <div class="main-wrapper">
-            <div id="myMap" style="height: 1300px; width:1100px" style="padding-right: 0px;">
+            <div id="myMap" class="sidebar-map" style="height: 1300px; width:1100px" style="padding-right: 0px;">
                 <div class="overlay">
                     <input type="radio">Hola
                 </div>
@@ -63,7 +95,8 @@
         <div class="col col-4 col-md-offset-2" id="res2" style="padding-left: 90px">        
         </div>
     </div>
-    <!-- Liberías: Leaflet, Enrutamiento, GeoJson dataset -->
+    <!-- Liberías: Leaflet, Enrutamiento, GeoJson dataset sidebar-->
+    <script src="{% static 'sidebar-v2-master/js/leaflet-sidebar.js' %}"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="{% static 'js/leaflet.extra-markers.min.js' %}"></script>
     <script src="{% static 'js/routing/leaflet-routing-machine.min.js' %}"></script>
@@ -73,6 +106,8 @@
 
   
     <script>
+        //Inicio de sidebar
+        var sidebar = L.control.sidebar('sidebar').addTo(myMap);
         //Verificación de la obtención del resultado de modelo 
         console.log({{ hcf|safe }})
         //Obtención de coordenadas
@@ -293,9 +328,11 @@
        
     </script>
     <script>
+        
         //Enrutamiento
-        L.Routing.control({
+        var  control = L.Routing.control({
             router: L.routing.mapbox('pk.eyJ1IjoiaXRhc3RldGFjbyIsImEiOiJjazlyemdhMWQwMGw4M2VsaWk1YWNoZjE5In0.pOkmZhEiIga2RtfV0rpvqA'),
+            //control.hide();,
             waypoints: [
                 L.latLng(latitude,longitude),
                 L.latLng(dlatitude,dlongitude)
@@ -306,8 +343,9 @@
         })
         .on('routesfound', function(e) {
             var routes = e.routes;
-        })
-        .addTo(myMap);
+        });
+        var routeBlock = control.onAdd(myMap);
+        document.getElementById('controls').appendChild(routeBlock);
        // setTimeout(function(){
         //    location = ''
         //},000)
