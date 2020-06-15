@@ -119,8 +119,8 @@ crossorigin=""/>
           console.log('Latitude : ' + crd.latitude);
           console.log('Longitude: ' + crd.longitude);
           console.log('More or less ' + crd.accuracy + ' meters.');
-          latitude = parseFloat(crd.latitude);
-          longitude = parseFloat(crd.longitude);
+          latitud = parseFloat(crd.latitude);
+          longitud = parseFloat(crd.longitude);
           $('#lating').val(latitud);
           $('#lnging').val(longitud);
           var latitud;
@@ -139,6 +139,14 @@ crossorigin=""/>
               location = ''
             },30000)
           }
+          else{
+            Swal.fire({
+              title: 'Listo!',
+              text: 'Estamos listos',
+              icon: 'success',
+              confirmButtonText: 'Recomendar Hospital!'
+            });
+          }
           
         }
         
@@ -150,12 +158,12 @@ crossorigin=""/>
     </script>
     <script>
       document.getElementById("autopos").addEventListener("click", function(event){
-        event.preventDefault()
+        
         var vlatitud = $("#lating").val();
         var vlongitud = $("#lnging").val();
         console.log(vlatitud,vlongitud);
         if (vlatitud != '' && vlatitud != null){
-            alert('Tenemos coordenadas!');
+            
         }else{
           e.preventDefault();
           Swal.fire({
