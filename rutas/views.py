@@ -56,16 +56,15 @@ class RutaListView(ListView):
 
    
 def resultado(request):
-    longitude = float(request.POST.get('lnging'))
-    latitude = float(request.POST.get('lating'))
-    def verificador(longitude, latitude):
-        
-        if longitude == "" or latitude == "":
-            return render(request, 'rutas.html')
-        else:
-            pass
-            return latitude, longitude
-
+    longitude = request.POST.get('lnging')
+    latitude = request.POST.get('lating')
+    if longitude != '' and latitude != '':
+        longitude = float(request.POST.get('lnging'))
+        latitude = float(request.POST.get('lating'))
+    # def verificador():
+    else:
+        return render(request, 'rutas/rutas.html')
+   
     #Porcentajes de Preferencia, dados por el usuario. En esta etapa fueron definidos por el equipo
     pref_Tiempo = 0.4
     pref_Distancia = 0.15
