@@ -26,7 +26,7 @@
 
 /** BOTTOM **/
 .leaflet-control-bar-bottom.leaflet-control-bar {
-    height: 300px;
+    height: 350px;
     width: 100%;
     bottom: -50px;
     transition: bottom 0.5s;

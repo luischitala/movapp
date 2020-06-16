@@ -38,7 +38,12 @@
     <link rel="stylesheet" href="{% static 'sidebar-v2-master/css/leaflet-sidebar.css' %}">
     <!-- Control Bar -->
     <link rel="stylesheet" href="{% static 'leaflet-control-bar/src/L.Control.Bar.css' %}">
-
+    <!-- Jquery UI -->
+    <link rel="stylesheet" href="{% static 'jquery-ui-1.12.1/jquery-ui.js' %}">
+    <!-- Google Icons  MD-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Search box -->
+    <link href="{% static 'leaflet-custom-searchbox/dist/searchbox.min.css' %}" rel="stylesheet" />
     <!-- EStilos -->
     {% endblock%}        
     {% block container %}
@@ -73,8 +78,7 @@
 
         </div>
     </div>
-    <!-- Row para el mapa
-     -->
+    <!-- Row para el mapa-->
     <div class="row">
         <div class="col" style="padding-right: -10px;">
             <div class="main-wrapper">
@@ -105,16 +109,18 @@
     <script src="{% static 'sidebar-v2-master/js/leaflet-sidebar.js' %}"></script>
     <!-- Control bar -->
     <script src="{% static 'leaflet-control-bar/src/L.Control.Bar.js' %}"></script>
+    <!-- Jquery UI -->
+    <script src="{% static 'jquery-ui-1.12.1/jquery-ui.js' %}"></script>
+    <!-- Search box -->
+    <script src="{% static 'leaflet-custom-searchbox/dist/leaflet.customsearchbox.min.js'%}"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="{% static 'js/leaflet.extra-markers.min.js' %}"></script>
     <script src="{% static 'js/routing/leaflet-routing-machine.min.js' %}"></script>
     <script src="{% static 'js/output.js' %}"></script>
     <script src="{% static 'js/script_blank.js'%}"></script>
     <script src="{% static 'js/movilizate.js' %}"></script>
-
-  
     <script>
-        //Control bar
+        //Control bar para activar contenedor de tarjetas
         var controlBar = L.control.bar('bar',{
             position:'bottom',
             visible:true
@@ -339,11 +345,9 @@
             }  
         }
     </script>
-    <script>
-       
+    <script>   
     </script>
     <script>
-        
         //Enrutamiento
         var  control = L.Routing.control({
             router: L.routing.mapbox('pk.eyJ1IjoiaXRhc3RldGFjbyIsImEiOiJjazlyemdhMWQwMGw4M2VsaWk1YWNoZjE5In0.pOkmZhEiIga2RtfV0rpvqA'),

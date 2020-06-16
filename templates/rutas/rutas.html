@@ -15,9 +15,14 @@ crossorigin=""/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Estilos -->
 <link rel="stylesheet" href="{% static 'css/estilos.css' %} ">
-
- <!-- Sweet ALert -->
- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<!-- Sweet ALert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+ <!-- Jquery UI -->
+ <link rel="stylesheet" href="{% static 'jquery-ui-1.12.1/jquery-ui.js' %}">
+ <!-- Google Icons  MD-->
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <!-- Search box -->
+ <link href="{% static 'leaflet-custom-searchbox/dist/searchbox.min.css'%}" rel="stylesheet" />
  
 {% endblock%}
 
@@ -46,7 +51,7 @@ crossorigin=""/>
         <div class="col-4">
             <div class="form-group row">
                 <div class="col-xs-4">
-                <form  class="form" method="POST" action="resultado">
+                    <form  class="form" method="POST" action="resultado">
                     
                     <div class="col-xs-4">
                         {% csrf_token %}
@@ -56,9 +61,9 @@ crossorigin=""/>
                         <input type="text" name="lnging" class="form-control" id="slng" required>
                         <button type="submit" class="btn btn-primary" style="">Consultar!</button>
                         <!-- <input id="ingmodelo" type="button" value="Buscar!" class="btn btn-primary btn-lg btn-block" /> -->
-                </form>
-                     </div>
-              </div>
+                    </form>
+                </div>
+            </div>
         </div>
         </div>
         <div class="col-4">
@@ -71,10 +76,13 @@ crossorigin=""/>
                     <option value="20.639715,-103.311846">Tlaquepaque</option>
                     <option value="20.720995,-103.391026">Zapopan</option>
                     <option value="20.624105,-103.242329">Tonalá</option>
-                    
                 </select>
             </div>
         </div>
+   <!-- Jquery UI -->
+   <script src="{% static 'jquery-ui-1.12.1/jquery-ui.js' %}"></script>
+   <!-- Search box -->
+   <script src="{% static 'leaflet-custom-searchbox/dist/leaflet.customsearchbox.min.js'%}"></script>
    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
    <script src="{% static 'js/leaflet.extra-markers.min.js' %}"></script>
    <script src="{% static 'js/routing/leaflet-routing-machine.min.js' %}"></script>
@@ -103,9 +111,7 @@ crossorigin=""/>
       }
 
       movSelector();
-      function obtencioncoord(){
-        
-      }
+    //Obtención de coordenadas
         var options = {
           enableHighAccuracy: true,
           timeout: 5000,
@@ -114,7 +120,6 @@ crossorigin=""/>
         
         function success(pos) {
           var crd = pos.coords;
-        
           console.log('Your current position is:');
           console.log('Latitude : ' + crd.latitude);
           console.log('Longitude: ' + crd.longitude);
@@ -158,7 +163,7 @@ crossorigin=""/>
     </script>
     <script>
       document.getElementById("autopos").addEventListener("click", function(event){
-        
+       //Validador de coordenadas Frontend 
         var vlatitud = $("#lating").val();
         var vlongitud = $("#lnging").val();
         console.log(vlatitud,vlongitud);
@@ -175,6 +180,37 @@ crossorigin=""/>
           return false;
         }
       });
-      
     </script>
+    <script>
+      $(document).ready(function () {
+         
+      
+         var searchboxControl=createSearchboxControl();
+         var control = new searchboxControl({
+             sidebarTitleText: 'Movilízate',
+             sidebarMenuItems: {
+                 Items: [
+                     { type: "link", name: "Tips para Emergencias", href: "http://github.com", icon: "icon-local-carwash" },
+                     { type: "link", name: "Configura tu clínica asignada", href: "http://google.com", icon: "icon-cloudy" },
+                     { type: "button", name: "Button 1", onclick: "alert('button 1 clicked !')", icon: "icon-potrait" },
+                     { type: "button", name: "Button 2", onclick: "button2_click();", icon: "icon-local-dining" },
+                     { type: "link", name: "Link 3 (stackoverflow.com)", href: 'http://stackoverflow.com', icon: "icon-bike" },
+                 ]
+             }
+         });
+         control._searchfunctionCallBack = function (searchkeywords)
+         {
+             if (!searchkeywords) {
+                 searchkeywords = "The search call back is clicked !!"
+             }
+             alert(searchkeywords);
+         }
+         myMap.addControl(control);
+     });
+     
+     function button2_click()
+     {
+         alert('button 2 clicked !!!');
+     }
+     </script>
 {% endblock %}
