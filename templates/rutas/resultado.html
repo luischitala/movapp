@@ -374,6 +374,12 @@
                 let longitude = position.coords.longitude;
                 console.log(latitude);
                 console.log(longitude);
+                let dudeMarker = L.ExtraMarkers.icon({
+                    icon: 'fa-male',
+                    markerColor: 'blue',
+                    shape: 'circle',
+                    prefix: 'fa'
+                })
                 //myMap.flyTo(pos, 15);
                 //dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);    
                 if(dude) {
