@@ -35,11 +35,14 @@
     
             </div>
 
-            <div class="sidebar-pane controls" id="profile">
-                <h1 class="sidebar-header">Profile<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-                <form action="POST">
+            <div class="sidebar-pane controls" id="perfil">
+                <h1 class="sidebar-header">Profile
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <form action="" method="POST" >
+                    {% csrf_token %}
                     <input type="hidden" id="lating" name="lating">
-                    <input type="hidden" id="longing" name="longing">
+                    <input type="hidden" id="longing" name="lnging">
                     <button type="submit" class="btn btn-primary">Recalcular mi posición</button>
                 </form>
             </div>
@@ -374,6 +377,8 @@
                 let longitude = position.coords.longitude;
                 console.log(latitude);
                 console.log(longitude);
+                $('#lating').val(latitude);
+                $('#lnging').val(longitude); 
                 let dudeMarker = L.ExtraMarkers.icon({
                     icon: 'fa-male',
                     markerColor: 'blue',
@@ -381,12 +386,12 @@
                     prefix: 'fa'
                 })
                 //myMap.flyTo(pos, 15);
-                //dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);    
+                dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);    
                 if(dude) {
                     dude.setLatLng([latitude,longitude]).update();
                        
                 }else{
-                    dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker); 
+                   var dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker); 
                 }
                 
                 setTimeout(update_position, 5000);  
