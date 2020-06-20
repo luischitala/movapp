@@ -359,14 +359,14 @@
          // myMap.on('locationfound', onLocationFound);
          // myMap.locate({setView: true, watch: true, maxZoom: 8});
 
-         var updateMarker = function(lat, lng) {
-            if (marker) {
-                marker.setLatLng([lat, lng]);
-            } else {
-                marker = L.marker([lat, lng]).addTo(map);
-            }
-            return false;
-        };
+        // var updateMarker = function(lat, lng) {
+        //    if (marker) {
+        //        marker.setLatLng([lat, lng]);
+        //    } else {
+        //        marker = L.marker([lat, lng]).addTo(map);
+        //    }
+        //    return false;
+        //};
 
         function update_position() {
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -375,7 +375,7 @@
                 console.log(latitude);
                 console.log(longitude);
                 //myMap.flyTo(pos, 15);
-                dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);    
+                //dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);    
                 if(!dude) {
                     dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);    
                 }
