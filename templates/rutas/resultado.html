@@ -375,11 +375,12 @@
                 console.log(latitude);
                 console.log(longitude);
                 //myMap.flyTo(pos, 15);
-                dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);    
-                if(!dude) {
-                    dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);    
-                }else{
+                //dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);    
+                if(dude) {
                     dude.setLatLng([latitude,longitude]).update();
+                       
+                }else{
+                    dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker); 
                 }
                 
                 setTimeout(update_position, 5000);  
