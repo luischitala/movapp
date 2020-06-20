@@ -59,7 +59,16 @@
             pos = [latitude,longitude]
             
             myMap.flyTo(pos, 15);
-            L.marker(pos).addTo(myMap).setIcon(dudeMarker);  
+            // L.marker(pos).addTo(myMap).setIcon(dudeMarker);  
+           
+            }
+
+         //Función Re cálculo
+         function recalculate(latitude,longitude){
+            pos = [latitude,longitude]
+            
+            myMap.flyTo(pos, 15);
+            dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);  
            
             }
 

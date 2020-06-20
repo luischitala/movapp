@@ -4,46 +4,7 @@
 
 <title>Bienvenido a Movilízate</title>
 {% load static %}
-    <!-- Leaflet -->
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin=""/>
-    <!-- Extramarkers -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.0/leaflet.awesome-markers.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-extra-markers@1.0.6/dist/css/leaflet.extra-markers.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
-    <!-- Estilos -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{% static 'css/estilos.css' %} ">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <script src="https://kit.fontawesome.com/ad8dd70d61.js" crossorigin="anonymous"></script>
-    <!-- Sweet ALert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-    <!-- Highlight -->
-    <script src="{% static 'leaflet.marker.highlight/index.js'%}"></script>
-    <link href="{% static 'leaflet.marker.highlight/index.css'%}" rel="stylesheet" >
-    <!-- Routing -->
-    <link rel="stylesheet" href="{% static 'js/routing/leaflet-routing-machine.css' %}">
-    <!-- Geo Coding -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
-    <!-- Side Bar -->
-    <link rel="stylesheet" href="{% static 'sidebar-v2-master/css/leaflet-sidebar.css' %}">
-    <!-- Control Bar -->
-    <link rel="stylesheet" href="{% static 'leaflet-control-bar/src/L.Control.Bar.css' %}">
-    <!-- Jquery UI -->
-    <link rel="stylesheet" href="{% static 'jquery-ui-1.12.1/jquery-ui.js' %}">
-    <!-- Google Icons  MD-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Search box -->
-    <link href="{% static 'leaflet-custom-searchbox/dist/searchbox.min.css' %}" rel="stylesheet" />
+   
     <!-- EStilos -->
     {% endblock%}        
     {% block container %}
@@ -53,7 +14,9 @@
         <div class="sidebar-tabs">
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
-                <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
+                <li><a href="#perfil" role="tab"><i class="fa fa-cross"></i></a></li>
+                <li><a href="#rutas" role="tab"><i class="fa fa-user"></i></a></li>
+
             </ul>
 
             <ul role="tablist">
@@ -74,8 +37,19 @@
 
             <div class="sidebar-pane controls" id="profile">
                 <h1 class="sidebar-header">Profile<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+                <form action="POST">
+                    <input type="hidden" id="lating" name="lating">
+                    <input type="hidden" id="longing" name="longing">
+                    <button type="submit" class="btn btn-primary">Recalcular mi posición</button>
+                </form>
             </div>
-
+            <div class="sidebar-pane" id="rutas">
+                <h1 class="sidebar-header">
+                    Re calcular la ruta
+                    <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <button class="btn btn-primary" id="monito">Calcular</button>
+            </div>
         </div>
     </div>
     <!-- Row para el mapa-->
@@ -85,40 +59,37 @@
             <div id="bar">
                 <!-- Row para las tarjetas -->
             <div class="row" id="" >
-                <div class="col col-4 col-md-offset-2" id="res0" style="padding-left: 80px">        
+                <div class="col col-4 col-md-offset-2" id="res0" style="padding-left: 50px">        
                 </div>
-                <div class="col col-4 col-md-offset-2" id="res1" style="padding-left: 90px">        
+                <div class="col col-4 col-md-offset-2" id="res1" style="padding-left: 50px">        
                 </div>
-                <div class="col col-4 col-md-offset-2" id="res2" style="padding-left: 90px">        
+                <div class="col col-4 col-md-offset-2" id="res2" style="padding-left: 50px">        
                 </div>
             </div>
             </div>
             <div id="myMap" class="sidebar-map" style="height: 2000px; width:1100px" style="padding-right: 0px;">
-                <div class="overlay">
-                    <input type="radio">Hola
-                </div>
-                <button id="refreshButton">Refresh Button</button>
             </div>
-           
             </div>
         </div>
         </div>
     </div>
+    <!-- Formulario para re cálculo -->
+   
     
     <!-- Liberías: Leaflet, Enrutamiento, GeoJson dataset sidebar-->
-    <script src="{% static 'sidebar-v2-master/js/leaflet-sidebar.js' %}"></script>
-    <!-- Control bar -->
-    <script src="{% static 'leaflet-control-bar/src/L.Control.Bar.js' %}"></script>
-    <!-- Jquery UI -->
-    <script src="{% static 'jquery-ui-1.12.1/jquery-ui.js' %}"></script>
-    <!-- Search box -->
-    <script src="{% static 'leaflet-custom-searchbox/dist/leaflet.customsearchbox.min.js'%}"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-    <script src="{% static 'js/leaflet.extra-markers.min.js' %}"></script>
-    <script src="{% static 'js/routing/leaflet-routing-machine.min.js' %}"></script>
-    <script src="{% static 'js/output.js' %}"></script>
-    <script src="{% static 'js/script_blank.js'%}"></script>
-    <script src="{% static 'js/movilizate.js' %}"></script>
+ <script src="{% static 'sidebar-v2-master/js/leaflet-sidebar.js' %}"></script>
+ <!-- Control bar -->
+ <script src="{% static 'leaflet-control-bar/src/L.Control.Bar.js' %}"></script>
+ <!-- Jquery UI -->
+ <script src="{% static 'jquery-ui-1.12.1/jquery-ui.js' %}"></script>
+ <!-- Search box -->
+ <script src="{% static 'leaflet-custom-searchbox/dist/leaflet.customsearchbox.min.js'%}"></script>
+ <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+ <script src="{% static 'js/leaflet.extra-markers.min.js' %}"></script>
+ <script src="{% static 'js/routing/leaflet-routing-machine.min.js' %}"></script>
+ <script src="{% static 'js/output.js' %}"></script>
+ <script src="{% static 'js/script_blank.js'%}"></script>
+ <script src="{% static 'js/movilizate.js' %}"></script>
     <script>
         //Control bar para activar contenedor de tarjetas
         var controlBar = L.control.bar('bar',{
@@ -176,7 +147,7 @@
         for(i=0;i<3;i++){
             var nombre = hospitales[i].NOMBRE_DE_LA_UNIDAD;
             if(i==0){
-                let tarjetas = `<div class="card card-hover border-0 rounded img-fluid position-relative zoom" style="border-radius:25px; height:400px; width:300px; padding-left:30px; padding-right:10px;  background-image: url('{% static 'img/green.png' %}'); max-height:400px; max-width:280px;" >
+                let tarjetas = `<div class="card card-hover border-0 rounded img-fluid position-relative zoom" style="border-radius:25px; height:400px; width:300px; padding-left:10px; padding-right:10px;  background-image: url('{% static 'img/green.png' %}'); max-height:400px; max-width:280px;" >
                     <div class="card-body" style="padding-top: -5px; z-index:2; position-absolute">
                     <div class="row t-info">
                         <div class="col-4"  >
@@ -214,7 +185,7 @@
                     </div>
                     <div class="row">
                         <div class="col" style="padding-top: 20px; text-align:center;">
-                            <button class="btn btn-light shadow" style="font-size: 10px; display:inline-block;">REGISTRAR EMERGENCIA</button>
+                            <button class="btn btn-light shadow btne" style="font-size: 10px; display:inline-block;">REGISTRAR EMERGENCIA</button>
                         </div>
                     </div>
                     <div class="row">
@@ -270,7 +241,7 @@
                     </div>
                     <div class="row">
                         <div class="col" style="padding-top: 20px; text-align:center;">
-                            <button class="btn btn-light shadow" style="font-size: 10px; display:inline-block;">REGISTRAR EMERGENCIA</button>
+                            <button class="btn btn-light shadow btne" style="font-size: 10px; display:inline-block;">REGISTRAR EMERGENCIA</button>
                         </div>
                     </div>
                     <div class="row">
@@ -326,7 +297,7 @@
                     </div>
                     <div class="row">
                         <div class="col" style="padding-top: 20px; text-align:center;">
-                            <button class="btn btn-light shadow" style="font-size: 10px; display:inline-block;">REGISTRAR EMERGENCIA</button>
+                            <button class="btn btn-light shadow btne" style="font-size: 10px; display:inline-block;">REGISTRAR EMERGENCIA</button>
                         </div>
                     </div>
                     <div class="row">
@@ -347,8 +318,9 @@
     </script>
     <script>   
     </script>
+    <!-- Enrutamiento -->
     <script>
-        //Enrutamiento
+       
         var  control = L.Routing.control({
             router: L.routing.mapbox('pk.eyJ1IjoiaXRhc3RldGFjbyIsImEiOiJjazlyemdhMWQwMGw4M2VsaWk1YWNoZjE5In0.pOkmZhEiIga2RtfV0rpvqA'),
             //control.hide();,
@@ -365,8 +337,68 @@
         });
         var routeBlock = control.onAdd(myMap);
         document.getElementById('controls').appendChild(routeBlock);
-       // setTimeout(function(){
-        //    location = ''
-        //},000)
+       //Emergencia registrada  
+        $('.btne').on('click', function () {
+            Swal.fire({
+                title: 'Su urgencia quedó registrada',
+                text: 'Tome todas las precauciones en su trayecto',
+                icon: 'success',
+                confirmButtonText: 'Continuar'
+              });
+        });
     </script>
-    {% endblock %}
+    <!-- //Recalculamiento de coordenadas para movimiento del monito -->
+    <script>
+        //function onLocationFound(e) {
+        //    var radius = e.accuracy / 2;
+        //    L.marker(e.latlng).addTo(map)
+         //     .bindPopup("You are within " + radius + " meters from this point").openPopup();
+         //   L.circle(e.latlng, radius).addTo(myMap);
+         // }
+          
+         // myMap.on('locationfound', onLocationFound);
+         // myMap.locate({setView: true, watch: true, maxZoom: 8});
+
+         var updateMarker = function(lat, lng) {
+            if (marker) {
+                marker.setLatLng([lat, lng]);
+            } else {
+                marker = L.marker([lat, lng]).addTo(map);
+            }
+            return false;
+        };
+
+        function update_position() {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                let latitude = position.coords.latitude;
+                let longitude = position.coords.longitude;
+                console.log(latitude);
+                console.log(longitude);
+                //myMap.flyTo(pos, 15);
+                dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);    
+                if(!dude) {
+                    dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);    
+                }
+                dude.setLatLng([latitude,longitude]).update();
+                setTimeout(update_position, 5000);  
+               
+            });
+        }
+        
+        update_position();
+
+        //Petición envío por JSON
+        $('#monito').on('click', function () {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                let latitude = position.coords.latitude;
+                let longitude = position.coords.longitude;
+                console.log(latitude);
+                console.log(longitude);
+                recalculate(latitude,longitude);       
+                });
+            });    
+     
+
+    </script>
+
+{% endblock %}
