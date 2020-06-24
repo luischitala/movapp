@@ -39,10 +39,10 @@
                 <h1 class="sidebar-header">Profile
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
-                <form action="" method="POST" >
+                <form action="resultado" method="POST" >
                     {% csrf_token %}
                     <input type="hidden" id="lating" name="lating">
-                    <input type="hidden" id="longing" name="lnging">
+                    <input type="hidden" id="lnging" name="lnging">
                     <button type="submit" class="btn btn-primary">Recalcular mi posición</button>
                 </form>
             </div>
@@ -386,22 +386,29 @@
                     prefix: 'fa'
                 })
                 //myMap.flyTo(pos, 15);
-                dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);    
-                if(dude) {
-                    dude.setLatLng([latitude,longitude]).update();
-                       
-                }else{
-                   var dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker); 
-                }
+                var dude = L.marker([latitude,longitude]).addTo(myMap).setIcon(dudeMarker);    
+
+                //if(dude != null) {
+                    //myMap.removeLayer(dude);
+                    //dude.setLatLng([latitude,longitude]).update();
+                    //myMap.addLayer(dude);
+                //}else{
+
+                //   dude = L.marker([latitude,longitude]).addTo(myMap).setIcon(dudeMarker); 
+                //}
                 
+                
+                setTimeout(function() {
+                    //layer.remove();
+                    myMap.removeLayer(dude);
+                }, 4999);
                 setTimeout(update_position, 5000);  
                
             });
         }
-        
         update_position();
-
-        //Petición envío por JSON
+        
+        //Petición envío en JSON
         $('#monito').on('click', function () {
             navigator.geolocation.getCurrentPosition(function(position) {
                 let latitude = position.coords.latitude;
