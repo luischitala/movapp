@@ -150,9 +150,9 @@
         for(i=0;i<3;i++){
             var nombre = hospitales[i].NOMBRE_DE_LA_UNIDAD;
             if(i==0){
-                let tarjetas = `<div class="card card-hover border-0 rounded img-fluid position-relative zoom" style="border-radius:25px; height:400px; width:300px; padding-left:10px; padding-right:10px;  background-image: url('{% static 'img/green.png' %}'); max-height:400px; max-width:280px;" >
+                let tarjetas = `<div class="card card-hover border-0 rounded img-fluid position-relative zoom" style="border-radius:25px; height:400px; width:300px; padding-left:30px; padding-right:10px;  background-image: url('{% static 'img/green.png' %}'); max-height:400px; max-width:280px;" >
                     <div class="card-body" style="padding-top: -5px; z-index:2; position-absolute">
-                    <div class="row t-info">
+                    <div class="row t-info" >
                         <div class="col-4"  >
                             <span class="fcircular" >
                             <img src="{% static 'img/descarga.png' %}" class="rounded-circle z-depth-2 shadow" height="55" width="55" alt="100x100" style="padding-bottom: 5px;">
@@ -172,12 +172,12 @@
                                     </div>  
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" style="height:100px;">
                             <h5 class="t-tarjeta" style="font-size: 15px; padding-left: 15px; padding-top:10px; color:white;">`+ nombre +`</h5>
                             </div>
                             </div>
                     </div>
-                    <div class="row" style:padding-top:50px;>
+                    <div class="row" >
                         <div class="col" style="max-height: 50px;">
                             <div class="tb-tarjeta rounded" style="background-color: #00d74e; ">
                                 <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Disponible en urgencias </h5>
@@ -228,13 +228,13 @@
                                     </div>  
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" style="height:100px;">
                             <h5 class="t-tarjeta" style="font-size: 15px; padding-left: 15px; padding-top:10px; color:black;">`+ nombre +`</h5>
                             </div>
                             </div>
                     </div>
-                    <div class="row">
-                        <div class="col" style="max-height: 50px; padding-top:10px;">
+                    <div class="row" >
+                        <div class="col" style="max-height: 50px;">
                             <div class="tb-tarjeta rounded" style="background-color: #00d74e;">
                                 <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Disponible en urgencias </h5>
                                 <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Servicio 24 horas</h5>
@@ -264,7 +264,7 @@
             else{
                 let tarjetas = `<div class="card card-hover border-0 border-secondary rounded img-fluid position-relative zoom" style=" height:400px; width:300px; padding-left:30px; padding-right:10px;  background-image: url('{% static 'img/selected.png' %}'); max-height:400px; max-width:280px;" >
                     <div class="card-body" style="padding-top: -5px; z-index:2; position-absolute">
-                    <div class="row t-info">
+                    <div class="row t-info" style=max-height=70px;>
                         <div class="col-4"  >
                             <span class="fcircular" >
                             <img src="{% static 'img/descarga.png' %}" class="rounded-circle z-depth-2 shadow" height="55" width="55" alt="100x100" style="padding-bottom: 5px;">
@@ -272,7 +272,7 @@
                         </div>
                             <div class="col-8" padding-right="0">
                             
-                            <div class="row"> 
+                            <div class="row" > 
                                 <div class="col-3" style="color:white">3</h7></div>
                                 <div class="col-9 d-flex justify-content-end" style="padding: top 25;">  
                                     <div class="row" style="padding-top: 4px;">
@@ -284,13 +284,13 @@
                                     </div>  
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" style="height:100px;">
                             <h5 class="t-tarjeta" style="font-size: 15px; padding-left: 15px; padding-top:10px; color:white;">`+ nombre +`</h5>
                             </div>
                             </div>
                     </div>
-                    <div class="row">
-                        <div class="col" style="max-height: 50px; padding-top:10px;">
+                    <div class="row" >
+                        <div class="col" style="max-height: 50px; ">
                             <div class="tb-tarjeta rounded" style="background-color: #00d74e;">
                                 <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Disponible en urgencias </h5>
                                 <h5 class="ct-tarjeta" style="font-size: 10px; text-align:center; color:white;" >Servicio 24 horas</h5>
