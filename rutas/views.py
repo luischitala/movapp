@@ -55,7 +55,7 @@ class RutaListView(ListView):
     template = 'rutas/rutas.html'
 
    
-def resultado(request):
+def resultadoa(request):
     longitude = request.POST.get('lnging')
     latitude = request.POST.get('lating')
     print(latitude,longitude)

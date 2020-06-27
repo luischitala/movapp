@@ -15,8 +15,8 @@ urlpatterns = [
     path('index/', local_views.hello_world),
 
     path('', rutas_views.inicio),
-    path('ruta/', rutas_views.ruta),
-    path('ruta/resultado', rutas_views.resultado, name='ruta_resultado'),
+    path('ruta/', rutas_views.ruta, name='busqueda'),
+    path('ruta/resultado', rutas_views.resultadoa, name='ruta_resultado'),
     # path('ruta/', RutaListView.as_view(), name="ruta_list")
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

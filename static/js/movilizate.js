@@ -72,7 +72,7 @@
         function center(latitude,longitude){
             pos = [latitude,longitude]
             
-            myMap.flyTo(pos, 15);
+            myMap.flyTo(pos, 12);
             // L.marker(pos).addTo(myMap).setIcon(dudeMarker);  
            
             }
@@ -81,7 +81,7 @@
          function recalculate(latitude,longitude){
             pos = [latitude,longitude]
             
-            myMap.flyTo(pos, 15);
+            myMap.flyTo(pos, 12);
             dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);  
            
             }

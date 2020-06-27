@@ -16,7 +16,7 @@
                 <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
                 <li><a href="#perfil" role="tab"><i class="fa fa-clock"></i></a></li>
                 <li><a href="#rutas" role="tab"><i class="fa fa-user"></i></a></li>
-
+                <li><a href="{% url 'busqueda' %}" role="tab"><i class="fa fa-arrow-left"></i></a></li>
             </ul>
 
             <ul role="tablist">
@@ -52,7 +52,17 @@
                     Ajustes de parámetros
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
-                <form action=""></form>
+                <form action="" class="form-group" style="padding-top: 20px;">
+                    <label for="tiempo" >Preferencia en tiempo</label>
+                    <input type="number" class="form-control" id="tiempo" style="width: 200px;">
+                    <label for="distancia" >Preferencia en distancia</label>
+                    <input type="number" class="form-control" id="distancia" style="width: 200px;">
+                    <label for="consultorios" >Preferencia en consultorios</label>
+                    <input type="number" class="form-control" id="consultorios" style="width: 200px;">
+                    <label for="medicos" >Preferencia en médicos</label>
+                    <input type="number" class="form-control" id="medicos" style="width: 200px;">
+                    <button class="btn btn-primary" id="mySubmit">Ajustar Parámetros</button>
+                </form>
             </div>
         </div>
     </div>
@@ -201,10 +211,10 @@
                     <div class="row">
                         <div class="col">
                             <ul style="padding-left: 0; padding-top:10px; ">
-                                <li style="list-style-type: none;"><a href="" style="color: white; text-decoration:none;">ESPECIALIDADES</a></li>
-                                <li style="list-style-type: none;"><a href="" style="color: white; text-decoration:none;">SERVICIOS</a></li>
-                                <li style="list-style-type: none;"><a href="" style="color: white; text-decoration:none;">PRECIOS</a></li>
-                                <li style="list-style-type: none;"><a href="" style="color: white; text-decoration:none;">CONTACTO</a></li>
+                                <li style="list-style-type: none;"><a style="color: white; text-decoration:none;">ESPECIALIDADES</a></li>
+                                <li style="list-style-type: none;"><a style="color: white; text-decoration:none;">SERVICIOS</a></li>
+                                <li style="list-style-type: none;"><a style="color: white; text-decoration:none;">PRECIOS</a></li>
+                                <li style="list-style-type: none;"><a style="color: white; text-decoration:none;">CONTACTO</a></li>
                             </ul>
                         </div>
                     </div>
@@ -257,10 +267,10 @@
                     <div class="row">
                         <div class="col">
                             <ul style="padding-left: 0; padding-top:10px; ">
-                                <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">ESPECIALIDADES</a></li>
-                                <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">SERVICIOS</a></li>
-                                <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">PRECIOS</a></li>
-                                <li style="list-style-type: none;"><a href="" style="color: black; text-decoration:none;">CONTACTO</a></li>
+                                <li style="list-style-type: none;"><a style="color: black; text-decoration:none;">ESPECIALIDADES</a></li>
+                                <li style="list-style-type: none;"><a style="color: black; text-decoration:none;">SERVICIOS</a></li>
+                                <li style="list-style-type: none;"><a style="color: black; text-decoration:none;">PRECIOS</a></li>
+                                <li style="list-style-type: none;"><a style="color: black; text-decoration:none;">CONTACTO</a></li>
                             </ul>
                         </div>
                     </div>
@@ -313,10 +323,10 @@
                     <div class="row">
                         <div class="col">
                             <ul style="padding-left: 0; padding-top:10px; ">
-                                <li style="list-style-type: none;"><a href="" style="color: white; text-decoration:none;">ESPECIALIDADES</a></li>
-                                <li style="list-style-type: none;"><a href="" style="color: white; text-decoration:none;">SERVICIOS</a></li>
-                                <li style="list-style-type: none;"><a href="" style="color: white; text-decoration:none;">PRECIOS</a></li>
-                                <li style="list-style-type: none;"><a href="" style="color: white; text-decoration:none;">CONTACTO</a></li>
+                                <li style="list-style-type: none;"><a style="color: white; text-decoration:none;">ESPECIALIDADES</a></li>
+                                <li style="list-style-type: none;"><a style="color: white; text-decoration:none;">SERVICIOS</a></li>
+                                <li style="list-style-type: none;"><a style="color: white; text-decoration:none;">PRECIOS</a></li>
+                                <li style="list-style-type: none;"><a style="color: white; text-decoration:none;">CONTACTO</a></li>
                             </ul>
                         </div>
                     </div>
@@ -410,8 +420,5 @@
                 recalculate(latitude,longitude);       
                 });
             });    
-     
-
-    </script>
-
+            document.getElementById("mySubmit").disabled = true;
 {% endblock %}
