@@ -2,14 +2,14 @@ body {
     background-image: url('../img/bg1.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: cover;
+    background-size: auto;
     width: 100vw;
 
     
 }
 
 #auth-container{
-    top: 1200px;
+    top: 400px;
 }
 
 .logo{

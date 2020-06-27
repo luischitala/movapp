@@ -31,21 +31,29 @@
 
                         <button id="autopos" type="submit" class="btn btn-primary btn-block">Hospital más cercano!</button>
                 </form>
-                <button class="btn btn-primary btn" onclick="ClearFields();">Consultar manualmente</button>
+                <div style="padding-left: 20px;"><button class="btn btn-primary btn" onclick="ClearFields();">Consultar manualmente</button></div>
+                
        </div>
        </div>
-        <div class="col-4">
+        <div class="col-2">
             <div class="form-group row">
                 <div class="col-xs-4">
-                    <form  class="form" method="POST" action="resultado">
+                    <form  class="form" id="form1" method="POST" action="resultado">
                     
                     <div class="col-xs-4">
                         {% csrf_token %}
                         <label for="latitud">Latitud</label>
-                        <input class="form-control" type="text"  name="lating" id="slat" required>
+                        <input class="form-control" type="number" min="20.300000" step="any"  name="lating" id="slat" required>
                         <label for="longitud">Longitud</label>
-                        <input type="text"  name="lnging" class="form-control" id="slng" required>
-                        <button type="submit" class="btn btn-primary" style="">Consultar!</button>
+                        <input type="number" min="-103.06" step="any"  name="lnging" class="form-control" id="slng" required >
+                        <div class="row">
+                          <div style="padding-top: 10px; padding-left: 14px;">
+                            <button type="submit" class="btn btn-primary" >Consultar!</button>
+                            </div>
+                            <div style="padding-top: 10px; padding-left: 10px;">
+                            <button type="button" class="btn btn-primary" onclick="clearset();" id="">Limpiar</button>
+                            </div>
+                        </div>
                         <!-- <input id="ingmodelo" type="button" value="Buscar!" class="btn btn-primary btn-lg btn-block" /> -->
                     </form>
                 </div>
@@ -53,7 +61,7 @@
         </div>
         </div>
         <div class="col-4">
-            <div class="selector">
+            <!-- <div class="selector">
                 <select name="select-location" id="select-location">
                     <option value="-1">Selecciona uno...</option>
                     <option value="20.677041,-103.347745">Guadalajara</option>
@@ -63,12 +71,31 @@
                     <option value="20.720995,-103.391026">Zapopan</option>
                     <option value="20.624105,-103.242329">Tonalá</option>
                 </select>
-            </div>
-            <div class="btn-toolbar" role="toolbar" style="padding-top: 20px;">
-              <div class="btn-group mr-2" role="group">
-                <button class="btn btn-secondary">Guadalajara</button>
+            </div> -->
+            <div class="row">
+              <div class="btn-toolbar" role="toolbar" style="padding-top: 20px;">
+                <div class="btn-group mr-2" role="group">
+                  <button class="btn btn-primary" onclick="guadalajara();">Guadalajara</button>
+                </div>
+                <div class="btn-group mr-2" role="group">
+                  <button class="btn btn-primary" onclick="elsalto();">El Salto</button>
+                </div>
+                <div class="btn-group mr-2" role="group">
+                  <button class="btn btn-primary" onclick="tlaquepaque();">Tlaquepaque</button>
+                </div>
+                <div class="btn-group mr-2" role="group">
+                  <button class="btn btn-primary" onclick="tlajomulco();">Tlajomulco</button>
+                </div>
+                <div class="btn-group mr-2" role="group">
+                  <button class="btn btn-primary" onclick="tonala();">Tonalá</button>
+                </div>
+                <div class="btn-group mr-2" role="group">
+                  <button class="btn btn-primary" onclick="zapopan();">Zapopan</button>
+                </div>
               </div>
             </div>
+            
+        
         </div>
    <!-- Jquery UI -->
    <script src="{% static 'jquery-ui-1.12.1/jquery-ui.js' %}"></script>
@@ -217,10 +244,65 @@
      </script>
      <!-- Aplicación de botones -->
      <script>
-      function Guadalajara() {
+      function guadalajara() {
 
-        document.getElementById("textfield1").value = "";
-        document.getElementById("textfield2").value = "";
+        var glating = 20.677041;
+        var glnging = -103.347745;
+
+        document.getElementById("slat").value = glating;
+        document.getElementById("slng").value = glnging;
+        document.getElementById("form1").submit();
+      }
+      function elsalto(){
+
+        var glating = 20.518943;
+        var glnging = -103.177678;
+          
+        document.getElementById("slat").value = glating;
+        document.getElementById("slng").value = glnging;
+        document.getElementById("form1").submit();        
+      }
+      function tlaquepaque(){
+
+        var glating = 20.639715;
+        var glnging = -103.311846;
+          
+        document.getElementById("slat").value = glating;
+        document.getElementById("slng").value = glnging;
+        document.getElementById("form1").submit();
+      }
+      function tlajomulco(){
+
+        var glating = 20.475683;
+        var glnging = -103.446807;
+          
+        document.getElementById("slat").value = glating;
+        document.getElementById("slng").value = glnging;
+        document.getElementById("form1").submit();
+      }
+      function tonala(){
+
+        var glating = 20.624105;
+        var glnging = -103.242329;
+          
+        document.getElementById("slat").value = glating;
+        document.getElementById("slng").value = glnging;
+        document.getElementById("form1").submit();
+      }
+      function zapopan(){
+        
+        var glating = 20.720995;
+        var glnging = -103.391026;
+
+        document.getElementById("slat").value = glating;
+        document.getElementById("slng").value = glnging;
+        document.getElementById("form1").submit();          
+
+      }
+      function clearset() {
+
+        document.getElementById("slat").value = "";
+        document.getElementById("slng").value = "";
       }
      </script>
 {% endblock %}
