@@ -58,6 +58,7 @@ class RutaListView(ListView):
 def resultado(request):
     longitude = request.POST.get('lnging')
     latitude = request.POST.get('lating')
+    print(latitude,longitude)
     if longitude != '' and latitude != '':
         longitude = float(request.POST.get('lnging'))
         latitude = float(request.POST.get('lating'))

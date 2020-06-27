@@ -16,8 +16,9 @@
    <div class="row">
     <div class="col" id="contmapa">
         
-        <div id="myMap" style="height: 1300px; width:1100px; "></div>
-       
+        <div id="myMap" style="height: 850px; width:2295px "></div>
+        
+        <!-- height: 1300px; width:1100px; -->
    </div>
    </div>
    <div class="row" ">
@@ -30,6 +31,7 @@
 
                         <button id="autopos" type="submit" class="btn btn-primary btn-block">Hospital más cercano!</button>
                 </form>
+                <button class="btn btn-primary btn" onclick="ClearFields();">Consultar manualmente</button>
        </div>
        </div>
         <div class="col-4">
@@ -40,9 +42,9 @@
                     <div class="col-xs-4">
                         {% csrf_token %}
                         <label for="latitud">Latitud</label>
-                        <input class="form-control" type="text" name="lating" id="slat" required>
+                        <input class="form-control" type="text"  name="lating" id="slat" required>
                         <label for="longitud">Longitud</label>
-                        <input type="text" name="lnging" class="form-control" id="slng" required>
+                        <input type="text"  name="lnging" class="form-control" id="slng" required>
                         <button type="submit" class="btn btn-primary" style="">Consultar!</button>
                         <!-- <input id="ingmodelo" type="button" value="Buscar!" class="btn btn-primary btn-lg btn-block" /> -->
                     </form>
@@ -61,6 +63,11 @@
                     <option value="20.720995,-103.391026">Zapopan</option>
                     <option value="20.624105,-103.242329">Tonalá</option>
                 </select>
+            </div>
+            <div class="btn-toolbar" role="toolbar" style="padding-top: 20px;">
+              <div class="btn-group mr-2" role="group">
+                <button class="btn btn-secondary">Guadalajara</button>
+              </div>
             </div>
         </div>
    <!-- Jquery UI -->
@@ -148,6 +155,14 @@
         };
         navigator.geolocation.getCurrentPosition(success, error, options);
     </script>
+    <!-- Eliminación de coordenadas automáticas -->
+    <script>
+      function ClearFields() {
+
+        document.getElementById("lating").value = "";
+        document.getElementById("lnging").value = "";
+   }
+    </script>
     <script>
       document.getElementById("autopos").addEventListener("click", function(event){
        //Validador de coordenadas Frontend 
@@ -160,7 +175,7 @@
           e.preventDefault();
           Swal.fire({
             title: 'Alto!',
-            text: 'Necesitamos de su localización para funcionar :(',
+            text: 'Necesitamos de su localización para funcionar :U',
             icon: 'error',
             confirmButtonText: 'Encender Gps'
           });
@@ -199,5 +214,13 @@
      {
          alert('button 2 clicked !!!');
      }
+     </script>
+     <!-- Aplicación de botones -->
+     <script>
+      function Guadalajara() {
+
+        document.getElementById("textfield1").value = "";
+        document.getElementById("textfield2").value = "";
+      }
      </script>
 {% endblock %}

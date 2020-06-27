@@ -9,12 +9,12 @@
     {% endblock%}        
     {% block container %}
     <!-- Sidebar -->
-    <div id="sidebar" class="sidebar collapsed">
+    <div id="sidebar" class="sidebar collapsed" style="height:650px;">
         <!-- Nav tabs -->
         <div class="sidebar-tabs">
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
-                <li><a href="#perfil" role="tab"><i class="fa fa-cross"></i></a></li>
+                <li><a href="#perfil" role="tab"><i class="fa fa-clock"></i></a></li>
                 <li><a href="#rutas" role="tab"><i class="fa fa-user"></i></a></li>
 
             </ul>
@@ -36,22 +36,23 @@
             </div>
 
             <div class="sidebar-pane controls" id="perfil">
-                <h1 class="sidebar-header">Profile
+                <h1 class="sidebar-header">Buscar nuevos resultados
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
                 <form action="resultado" method="POST" >
+                    <div style="height:20px;"></div>
                     {% csrf_token %}
                     <input type="hidden" id="lating" name="lating">
                     <input type="hidden" id="lnging" name="lnging">
-                    <button type="submit" class="btn btn-primary">Recalcular mi posición</button>
+                    <button type="submit" class="btn btn-primary" >Recalcular mi posición</button>
                 </form>
             </div>
             <div class="sidebar-pane" id="rutas">
                 <h1 class="sidebar-header">
-                    Re calcular la ruta
+                    Ajustes de parámetros
                     <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
-                <button class="btn btn-primary" id="monito">Calcular</button>
+                <form action=""></form>
             </div>
         </div>
     </div>
@@ -62,23 +63,20 @@
             <div id="bar">
                 <!-- Row para las tarjetas -->
             <div class="row" id="" >
-                <div class="col col-4 col-md-offset-2" id="res0" style="padding-left: 50px">        
+                <div class="col col-4 col-md-offset-2" id="res0" style="padding-left:600px">        
                 </div>
-                <div class="col col-4 col-md-offset-2" id="res1" style="padding-left: 50px">        
+                <div class="col col-4 col-md-offset-2" id="res1" style="padding-left: 320px; padding-right:300px">        
                 </div>
-                <div class="col col-4 col-md-offset-2" id="res2" style="padding-left: 50px">        
+                <div class="col col-4 col-md-offset-2" id="res2" style="padding-right: 700px">        
                 </div>
             </div>
             </div>
-            <div id="myMap" class="sidebar-map" style="height: 2000px; width:1100px" style="padding-right: 0px;">
+            <div id="myMap" class="sidebar-map" style="height: 1070px; width:2295px" style="padding-right: 0px;">
             </div>
             </div>
         </div>
         </div>
     </div>
-    <!-- Formulario para re cálculo -->
-   
-    
     <!-- Liberías: Leaflet, Enrutamiento, GeoJson dataset sidebar-->
  <script src="{% static 'sidebar-v2-master/js/leaflet-sidebar.js' %}"></script>
  <!-- Control bar -->
@@ -93,6 +91,7 @@
  <script src="{% static 'js/output.js' %}"></script>
  <script src="{% static 'js/script_blank.js'%}"></script>
  <script src="{% static 'js/movilizate.js' %}"></script>
+ <!-- //Control bar para activar contenedor de tarjetas -->
     <script>
         //Control bar para activar contenedor de tarjetas
         var controlBar = L.control.bar('bar',{
@@ -117,6 +116,8 @@
         var dlongitude = hospitales[0].LONGITUD;
         //Función de centrado
         center(latitude,longitude);
+        console.log(latitude,longitude)
+
         Swal.fire({
             title: 'Listo!',
             text: 'Hemos encontrado opciones cerca de usted',
@@ -124,6 +125,7 @@
             confirmButtonText: 'Continuar'
           });
     </script>
+    <!-- Ciclo para colocar los íconos -->
     <script>
         //Ciclo para colocar los íconos
         for (i=0;i<3;i++){
@@ -133,14 +135,19 @@
             mname = hospitales[i].NOMBRE_DE_LA_UNIDAD;
             mlatitude = hospitales[i].LATITUD;
             mlongitude = hospitales[i].LONGITUD;
-            hospitalmarkerh(mlatitude,mlongitude);
+            hospitalmarker1(mlatitude,mlongitude);
             }
-            else {
+            else if(i==1) {
                 //Para el resto
                 mname = hospitales[i].NOMBRE_DE_LA_UNIDAD;
                 mlatitude = hospitales[i].LATITUD;
                 mlongitude = hospitales[i].LONGITUD;
-                hospitalmarker(mlatitude,mlongitude); 
+                hospitalmarker2(mlatitude,mlongitude); 
+            }else{
+                mname = hospitales[i].NOMBRE_DE_LA_UNIDAD;
+                mlatitude = hospitales[i].LATITUD;
+                mlongitude = hospitales[i].LONGITUD;
+                hospitalmarker3(mlatitude,mlongitude);
             }
         }
     </script>
@@ -323,23 +330,23 @@
     </script>
     <!-- Enrutamiento -->
     <script>
-       
-        var  control = L.Routing.control({
-            router: L.routing.mapbox('pk.eyJ1IjoiaXRhc3RldGFjbyIsImEiOiJjazlyemdhMWQwMGw4M2VsaWk1YWNoZjE5In0.pOkmZhEiIga2RtfV0rpvqA'),
-            //control.hide();,
-            waypoints: [
-                L.latLng(latitude,longitude),
-                L.latLng(dlatitude,dlongitude)
-            ],
-            createMarker: function() { return null; },
-            routeWhileDragging: true,
-            geocoder: L.Control.Geocoder.nominatim()
-        })
-        .on('routesfound', function(e) {
-            var routes = e.routes;
-        });
-        var routeBlock = control.onAdd(myMap);
-        document.getElementById('controls').appendChild(routeBlock);
+            var  control = L.Routing.control({
+                router: L.routing.mapbox('pk.eyJ1IjoiaXRhc3RldGFjbyIsImEiOiJjazlyemdhMWQwMGw4M2VsaWk1YWNoZjE5In0.pOkmZhEiIga2RtfV0rpvqA'),
+                //control.hide();,
+                waypoints: [
+                    L.latLng(latitude,longitude),
+                    L.latLng(dlatitude,dlongitude)
+                ],
+                createMarker: function() { return null; },
+                routeWhileDragging: true,
+                geocoder: L.Control.Geocoder.nominatim()
+            })
+            .on('routesfound', function(e) {
+                var routes = e.routes;
+            });
+            var routeBlock = control.onAdd(myMap);
+            document.getElementById('controls').appendChild(routeBlock);
+
        //Emergencia registrada  
         $('.btne').on('click', function () {
             Swal.fire({
@@ -352,25 +359,6 @@
     </script>
     <!-- //Recalculamiento de coordenadas para movimiento del monito -->
     <script>
-        //function onLocationFound(e) {
-        //    var radius = e.accuracy / 2;
-        //    L.marker(e.latlng).addTo(map)
-         //     .bindPopup("You are within " + radius + " meters from this point").openPopup();
-         //   L.circle(e.latlng, radius).addTo(myMap);
-         // }
-          
-         // myMap.on('locationfound', onLocationFound);
-         // myMap.locate({setView: true, watch: true, maxZoom: 8});
-
-        // var updateMarker = function(lat, lng) {
-        //    if (marker) {
-        //        marker.setLatLng([lat, lng]);
-        //    } else {
-        //        marker = L.marker([lat, lng]).addTo(map);
-        //    }
-        //    return false;
-        //};
-
         function update_position() {
             navigator.geolocation.getCurrentPosition(function(position) {
                 let latitude = position.coords.latitude;
@@ -403,10 +391,14 @@
                     myMap.removeLayer(dude);
                 }, 4999);
                 setTimeout(update_position, 5000);  
-               
+                
             });
         }
         update_position();
+        //var latitude = "{{latitude}}";
+        //var longitude = "{{longitude}}";
+        recalculate(latitude,longitude);
+     
         
         //Petición envío en JSON
         $('#monito').on('click', function () {

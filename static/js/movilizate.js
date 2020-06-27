@@ -39,7 +39,21 @@
         // }  
 
         // Personalización íconos
-        let hospitalMarker = L.ExtraMarkers.icon({
+        let hospitalMarker1 = L.ExtraMarkers.icon({
+            icon: 'fa-hospital',
+            markerColor: 'green',
+            shape: 'square',
+            prefix: 'fa'
+        })
+
+        let hospitalMarker2 = L.ExtraMarkers.icon({
+            icon: 'fa-hospital',
+            markerColor: 'white',
+            shape: 'square',
+            prefix: 'fa'
+        })
+
+        let hospitalMarker3 = L.ExtraMarkers.icon({
             icon: 'fa-hospital',
             markerColor: 'red',
             shape: 'square',
@@ -73,21 +87,29 @@
             }
 
         //Función Añadir los marcadores
-        function hospitalmarker(mlatitude,mlongitude){
+        function hospitalmarker2(mlatitude,mlongitude){
 
             pos = [mlatitude,mlongitude]
 
-            L.marker(pos).addTo(myMap).setIcon(hospitalMarker); 
+            L.marker(pos).addTo(myMap).setIcon(hospitalMarker2); 
             
         }
         //Highlight
-        function hospitalmarkerh(mlatitude,mlongitude){
+        function hospitalmarker1(mlatitude,mlongitude){
 
             pos = [mlatitude,mlongitude]
 
-            L.marker(pos, {highlight: 'permanent'}).addTo(myMap).setIcon(hospitalMarker).bindPopup('Soy la mejor opción :)').openPopup(); 
+            L.marker(pos, {highlight: 'permanent'}).addTo(myMap).setIcon(hospitalMarker1).bindPopup('Soy la mejor opción :)').openPopup(); 
             
         }
+            //Highlight
+            function hospitalmarker3(mlatitude,mlongitude){
+
+                pos = [mlatitude,mlongitude]
+    
+                L.marker(pos).addTo(myMap).setIcon(hospitalMarker3);
+                
+            }
 
         //Función de rellenado de inputs
         function selectionchange(){
