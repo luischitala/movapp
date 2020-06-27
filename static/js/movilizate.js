@@ -82,7 +82,7 @@
             pos = [latitude,longitude]
             
             myMap.flyTo(pos, 12);
-            dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker);  
+            dude = L.marker(pos).addTo(myMap).setIcon(dudeMarker); 
            
             }
 
