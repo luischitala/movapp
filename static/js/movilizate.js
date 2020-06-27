@@ -124,17 +124,17 @@
 
 
         //Función para habilitar el selector
-        function movSelector(){
-            document.getElementById("select-location").addEventListener('change', function(e){
-                //Obtención de coordendas
-                console.log(e.target.value.split(","));
-                //Almacenamiento en variable
-                let coords = e.target.value.split(",");
-                //Rellenado de inputs con valores del selector
-                selectionchange()
-                //Función de colocación en el mapa
-            myMap.flyTo(coords, 14);
-        })}
+        // function movSelector(){
+        //     document.getElementById("select-location").addEventListener('change', function(e){
+        //         //Obtención de coordendas
+        //         console.log(e.target.value.split(","));
+        //         //Almacenamiento en variable
+        //         let coords = e.target.value.split(",");
+        //         //Rellenado de inputs con valores del selector
+        //         selectionchange()
+        //         //Función de colocación en el mapa
+        //     myMap.flyTo(coords, 14);
+        // })}
         
  
 
